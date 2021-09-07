@@ -35,7 +35,7 @@ The app folders structure has been updated in this repo compared to the version 
 
 ### Optional
 - [GraphQL VS code extension](https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql) 
-- [Hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/index.html).
+- [Hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/index.html)
 
 ## Local developement
 
@@ -56,7 +56,7 @@ To start Hasura with Postgres run:
 
 Hasura will create the demo database and the associated metadata during its first launch.
 
-To start the Expo app run:
+To start the Expo app run (Hasura must be up):
 
 ```sh
   yarn start
@@ -71,7 +71,7 @@ To start the Expo app run:
   yarn web
 ```
 
-To generate the GraphQL types and operations with GraphQL code generator:
+To generate types and operations with GraphQL code generator (Hasura must be up):
 
 ```sh
   yarn generate
@@ -94,7 +94,9 @@ To generate the GraphQL types and operations with GraphQL code generator:
 - [X] Cache persistence in the Async storage
 
 ## Branches
+- `main` Demo app with infinite list, async storage persistor and optimistic updates
 - `simple-list` Demo app using a simple movies FlatList
+- `movies-list-optimistic-update` The movies list is optimistically updated after a movie mutation 
 
 ## Notes
 - This app uses many auto-refetch and cache invalidation possibilities but you may have to select the ones you really need for your app in production.

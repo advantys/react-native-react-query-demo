@@ -1,3 +1,4 @@
+import { setMoviesQueryData } from '@app/screens/utils/setMoviesQueryData';
 import {
   MovieFragment,
   useUpdateMovieRatingsMutation,
@@ -29,13 +30,20 @@ export function useUpdateMovieRatings() {
         movie: { ...previousMovie?.movie, ratings: updatedMovie.ratings },
       });
 
+      // Get the previous movies data data
+      const previousMovies = queryClient.getQueryData<{ movie: MovieFragment }>(
+        ['movies']
+      );
+
+      // Optimistic udpate for the Movies list
+      setMoviesQueryData(updatedMovie);
+
       // Return a context that can be use in onError
-      return { previousMovie, updatedMovie };
+      return { previousMovie, previousMovies, updatedMovie };
     },
     onSuccess: (data) => {
       const id = data.updateMovie?.id;
       console.log(Date.now(), 'Movie #', id, 'onSuccess');
-      queryClient.invalidateQueries('moviesQuery');
     },
     onError: (err, updatedMovie, context: any) => {
       console.log(Date.now(), 'Movie #', updatedMovie.id, 'onError', err);
@@ -45,6 +53,9 @@ export function useUpdateMovieRatings() {
         ['movieDetailsQuery', { id: updatedMovie.id }],
         context.previousMovie
       );
+
+      // Rollback to previous movies list data
+      setMoviesQueryData(context.previousMovies);
     },
   });
 

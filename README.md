@@ -40,10 +40,16 @@ The app folders structure has been updated in this repo compared to the version 
 
 ## Local developement
 
+### 1. Start the GraphQL API
+
 To start Hasura with Postgres run:
 
 ```sh
+  # Run Hasura
   yarn hasura:up
+
+  # Stop Hasura
+  yarn hasura:down
 
   # Display Hasura logs
   yarn hasura:logs
@@ -51,30 +57,33 @@ To start Hasura with Postgres run:
   # Launch the console using Hasura CLI or go to http://localhost:8080
   yarn hasura:console
 
-  # Stop Hasura
-  yarn hasura:down
 ```
 
 To start Hasura with Postgres on Apple Silicon (M1) run:
 
 ```sh
+  # Run Hasura
   yarn hasura:arm64:up
+
+  # Stop Hasura
+  yarn hasura:arm64:down
 
   # Display Hasura logs
   yarn hasura:arm64:logs
 
   # Launch the console using Hasura CLI or go to http://localhost:8080
   yarn hasura:arm64:console
-
-  # Stop Hasura
-  yarn hasura:arm64:down
 ```
 
 Hasura will create the demo database and the associated metadata during its first launch.
+You can open the Hasura console at this address http://localhost:8080.
 
 To start the Expo app run (Hasura must be up with the initial migrations done):
 
+### 2. Start the Expo app
+
 ```sh
+  # Expo start
   yarn start
 
   # Run on iOs simulator
@@ -86,6 +95,22 @@ To start the Expo app run (Hasura must be up with the initial migrations done):
   # Run in web browser (experimental)
   yarn web
 ```
+
+To test the App on your mobile device you need to change the GraphQL API address in:
+`./src/providers/GraphQLClientProvider.tsx`
+
+Replace `localhost` with your local IP address:
+```ts
+const initialState: GraphQLClientState = {
+  graphQLClient: new GraphQLClient('http://locahost:8080/v1/graphql', {
+    headers: {
+      //authorization: '',
+    },
+  }),
+};
+```
+
+## GraphQL code generator
 
 To generate types and operations with GraphQL code generator (Hasura must be up):
 

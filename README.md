@@ -26,6 +26,7 @@ The app folders structure has been updated in this repo compared to the version 
 
 - [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) (SDK 42)
 - [Docker](https://docs.docker.com/desktop/)
+- [Docker Compose](https://docs.docker.com/compose/install/)
 
 ## Installation
 
@@ -52,6 +53,21 @@ To start Hasura with Postgres run:
 
   # Stop Hasura
   yarn hasura:down
+```
+
+To start Hasura with Postgres on Apple Silicon (M1) run:
+
+```sh
+  yarn hasura:arm64:up
+
+  # Display Hasura logs
+  yarn hasura:arm64:logs
+
+  # Launch the console using Hasura CLI or go to http://localhost:8080
+  yarn hasura:arm64:console
+
+  # Stop Hasura
+  yarn hasura:arm64:down
 ```
 
 Hasura will create the demo database and the associated metadata during its first launch.

@@ -21,7 +21,10 @@
     "hasura:up": "cd hasura; docker-compose up",
     "hasura:down": "cd hasura; docker-compose down",
     "hasura:logs": "cd hasura; docker-compose logs -f",
-    "hasura:console": "cd hasura; hasura console"
+    "hasura:console": "cd hasura; hasura console",
+    "hasura:arm64:up": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml up",
+    "hasura:arm64:down": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml down",
+    "hasura:arm64:logs": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml logs -f"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",

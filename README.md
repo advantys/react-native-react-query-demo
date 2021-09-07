@@ -93,6 +93,9 @@ To generate the GraphQL types and operations with GraphQL code generator:
 - [X] FlatList with infinite queries
 - [X] Cache persistence in the Async storage
 
+## Branches
+- `simple-list` Demo app using a simple movies FlatList
+
 ## Notes
 - This app uses many auto-refetch and cache invalidation possibilities but you may have to select the ones you really need for your app in production.
 - The infinite list implemented for this demo app has no limit on the number of pages, the auto-refetch and app performance will be impacted when a lot of pages are loaded.

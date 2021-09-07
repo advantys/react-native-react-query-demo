@@ -35,7 +35,7 @@ The app folders structure has been updated in this repo compared to the version 
 
 ### Optional
 - [GraphQL VS code extension](https://marketplace.visualstudio.com/items?itemName=GraphQL.vscode-graphql) 
-- [Hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/index.html).
+- [Hasura CLI](https://hasura.io/docs/latest/graphql/core/hasura-cli/index.html)
 
 ## Local developement
 
@@ -56,7 +56,7 @@ To start Hasura with Postgres run:
 
 Hasura will create the demo database and the associated metadata during its first launch.
 
-To start the Expo app run:
+To start the Expo app run (Hasura must be up):
 
 ```sh
   yarn start
@@ -71,7 +71,7 @@ To start the Expo app run:
   yarn web
 ```
 
-To generate the GraphQL types and operations with GraphQL code generator:
+To generate types and operations with GraphQL code generator (Hasura must be up):
 
 ```sh
   yarn generate

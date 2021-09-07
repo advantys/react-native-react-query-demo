@@ -1,0 +1,32 @@
+fragment movieFragment on movies {
+  id
+  title
+  ratings
+}
+
+fragment movieDetailsFragment on movies {
+  id
+  title
+  storyline
+  genre
+  ratings
+}
+
+query moviesQuery($offset: Int! = 0, $limit: Int!) {
+  movies(offset: $offset, limit: $limit, order_by: { id: asc }) {
+    ...movieFragment
+  }
+}
+
+query movieDetailsQuery($id: Int!) {
+  movie(id: $id) {
+    ...movieDetailsFragment
+  }
+}
+
+mutation updateMovieRatingsMutation($id: Int!, $ratings: Int = 0) {
+  updateMovie(pk_columns: { id: $id }, _set: { ratings: $ratings }) {
+    ...movieFragment
+    id
+  }
+}

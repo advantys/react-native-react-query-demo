@@ -1,0 +1,8 @@
+table:
+  name: movies
+  schema: public
+configuration:
+  custom_column_names: {}
+  custom_root_fields:
+    select_by_pk: movie
+    update_by_pk: updateMovie

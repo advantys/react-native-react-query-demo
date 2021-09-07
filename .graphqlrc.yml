@@ -1,0 +1,13 @@
+schema: 'http://localhost:8080/v1/graphql'
+headers:
+  x-hasura-admin-secret:
+documents: 'src/**/graphql/**/*.graphql'
+generates:
+  src/services/graphql/index.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-query
+    config:
+      fetcher: graphql-request
+      omitOperationSuffix: true

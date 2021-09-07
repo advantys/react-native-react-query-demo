@@ -26,7 +26,7 @@ const isWEB = Platform.OS === 'web';
 initPersistor(queryClient);
 
 function onAppStateChange(status: AppStateStatus) {
-  // React Query already supports in web browser refetch On Window Focus ny default
+  // React Query already supports in web browser refetch on window focus by default
   if (!isWEB) {
     focusManager.setFocused(status === 'active');
   }

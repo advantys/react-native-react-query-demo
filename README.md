@@ -78,9 +78,9 @@ To start Hasura with Postgres on Apple Silicon (M1) run:
 Hasura will create the demo database and the associated metadata during its first launch.
 You can open the Hasura console at this address http://localhost:8080.
 
-To start the Expo app run (Hasura must be up with the initial migrations done):
-
 ### 2. Start the Expo app
+
+To start the Expo app run (Hasura must be up with the initial migrations done):
 
 ```sh
   # Expo start

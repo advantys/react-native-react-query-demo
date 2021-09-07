@@ -94,7 +94,9 @@ To generate the GraphQL types and operations with GraphQL code generator:
 - [X] Cache persistence in the Async storage
 
 ## Branches
+- `main` Demo app with infinite list, async storage persistor and optimistic updates
 - `simple-list` Demo app using a simple movies FlatList
+- `movies-list-optimistic-update` The movies list is optimistically updated after a movie mutation 
 
 ## Notes
 - This app uses many auto-refetch and cache invalidation possibilities but you may have to select the ones you really need for your app in production.

@@ -47,7 +47,7 @@ To start Hasura with Postgres run:
   # Display Hasura logs
   yarn hasura:logs
 
-  # Launch the console using Hasura CLI
+  # Launch the console using Hasura CLI or go to http://localhost:8080
   yarn hasura:console
 
   # Stop Hasura

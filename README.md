@@ -56,7 +56,7 @@ To start Hasura with Postgres run:
 
 Hasura will create the demo database and the associated metadata during its first launch.
 
-To start the Expo app run (Hasura must be up):
+To start the Expo app run (Hasura must be up with the initial migrations done):
 
 ```sh
   yarn start

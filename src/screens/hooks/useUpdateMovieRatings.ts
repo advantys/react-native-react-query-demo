@@ -1,12 +1,14 @@
+import { useQueryClient } from 'react-query';
+
 import {
   MovieFragment,
   useUpdateMovieRatingsMutation,
 } from '@app/services/graphql';
 import { useGraphQLClient } from '@app/providers/hooks/useGraphQLClient';
-import { queryClient } from '@app/services/queryClient';
 
 export function useUpdateMovieRatings() {
   const { graphQLClient } = useGraphQLClient();
+  const queryClient = useQueryClient();
 
   const mutation = useUpdateMovieRatingsMutation(graphQLClient, {
     onMutate: async (updatedMovie) => {

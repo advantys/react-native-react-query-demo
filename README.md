@@ -1,6 +1,7 @@
 # React Native - React Query - Hasura - demo app 
 
 A basic React Native app to demonstrate [React Query](https://react-query.tanstack.com/) with [GraphQL Code generator](https://www.graphql-code-generator.com/) features. 
+
 The GraphQL API is powered by [Hasura](https://hasura.io).
 
 ## React Native EU Conference 2021 Talk
@@ -8,6 +9,8 @@ The GraphQL API is powered by [Hasura](https://hasura.io).
 [React Native Europe Conference 21 replay](https://www.youtube.com/watch?v=Kt--iBUQcww&t=22102s)
 
 The app folders structure has been updated in this repo compared to the version demonstrated in the talk.
+
+GraphQL subscription support example has been added.
 
 ## Full Stack
 ### Front-end
@@ -107,6 +110,9 @@ const initialState: GraphQLClientState = {
       //authorization: '',
     },
   }),
+  webSocketClient: createClient({
+    url: 'ws://localhost:8080/v1/graphql',
+  }),
 };
 ```
 
@@ -133,11 +139,13 @@ To generate types and operations with GraphQL code generator (Hasura must be up)
 - [X] React Suspense and Error boundaries support
 - [X] FlatList with infinite queries
 - [X] Cache persistence in the Async storage
+- [X] GraphQL subscriptions
 
 ## Branches
 - `main` Demo app with infinite list, async storage persistor and optimistic updates
 - `simple-list` Demo app using a simple movies FlatList
 - `movies-list-optimistic-update` The movies list is optimistically updated after a movie mutation 
+- `graphql-subscriptions` the movie details screen is updated with GraphQL subscriptions
 
 ## Notes
 - This app uses many auto-refetch and cache invalidation possibilities but you may have to select the ones you really need for your app in production.
@@ -147,4 +155,4 @@ To generate types and operations with GraphQL code generator (Hasura must be up)
 - No GraphQL API authentication and authorization have been implemented in this demo.
 - React Native Web support is experimental.
 - Console logs are verbose for demo purposes.
-- GraphQL subscriptions are not demonstrated in this app but [React Query can be used with web sockets](https://tkdodo.eu/blog/using-web-sockets-with-react-query).
+- More info about WebSocket support in this article [React Query can be used with web sockets](https://tkdodo.eu/blog/using-web-sockets-with-react-query).

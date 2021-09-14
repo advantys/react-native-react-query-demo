@@ -1,3 +1,4 @@
+import { useMovieDetailsSubscription } from './useMovieDetailsSubscription';
 import { useQueryStatusLogging } from '@app/hooks/useQueryStatusLogging';
 import { MovieFragment, useMovieDetailsQuery } from '@app/services/graphql';
 import { useGraphQLClient } from '@app/providers/hooks/useGraphQLClient';
@@ -15,6 +16,7 @@ export function useMovieDetails(movie: MovieFragment) {
       initialData: { movie },
       suspense: false,
       useErrorBoundary: true,
+      staleTime: Infinity,
       onSuccess: () => {
         console.log(Date.now(), `Fetching movie #${id} details succeed`);
       },
@@ -23,8 +25,10 @@ export function useMovieDetails(movie: MovieFragment) {
 
   useQueryStatusLogging(queryInfo, `movie #${id} details`);
 
+  const { isDeleted } = useMovieDetailsSubscription(id);
+
   return {
     movieDetails: queryInfo.data?.movie,
-    refetch: queryInfo.refetch,
+    isDeleted,
   };
 }

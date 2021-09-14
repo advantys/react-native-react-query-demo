@@ -1,5 +1,6 @@
 import { GraphQLClient } from 'graphql-request';
 import React from 'react';
+import { Client as WebSocketClient, createClient } from 'graphql-ws';
 
 type Props = {
   children: React.ReactNode;
@@ -7,6 +8,7 @@ type Props = {
 
 export type GraphQLClientState = {
   graphQLClient: GraphQLClient;
+  webSocketClient: WebSocketClient;
 };
 
 export type GraphQLClientProviderState = GraphQLClientState | null;
@@ -19,6 +21,9 @@ const initialState: GraphQLClientState = {
     headers: {
       //authorization: '',
     },
+  }),
+  webSocketClient: createClient({
+    url: 'ws://localhost:8080/v1/graphql',
   }),
 };
 

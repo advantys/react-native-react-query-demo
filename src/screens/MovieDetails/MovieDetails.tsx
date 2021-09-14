@@ -1,17 +1,19 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, RefreshControl } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ActivityIndicator, Title, useTheme } from 'react-native-paper';
+import {
+  ActivityIndicator,
+  Title,
+  useTheme,
+  Snackbar,
+} from 'react-native-paper';
 import { RouteProp } from '@react-navigation/native';
-
 import { useMovieDetails } from '@app/screens/hooks/useMovieDetails';
 import { useMovieRatingsMutation } from '@app/screens/hooks/useMovieRatingsMutation';
 import { MainStack } from '@app/navigation/types';
 import { Paragraph } from '@app/components/Typography/Paragraph';
 import { spacings } from '@app/styles/spacings';
-import { useOnlineStatus } from '@app/providers/hooks/useOnlineStatus';
 import { MovieDetailsFragment } from '@app/services/graphql';
-import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
 import { Ratings } from '@app/components/Ratings';
 
 type MovieDetailsScreenNavigationProp = StackNavigationProp<
@@ -26,58 +28,56 @@ type Props = {
 
 export function MovieDetails({ route }: Props) {
   const theme = useTheme();
-  const isOnline = useOnlineStatus();
   const { movie } = route.params;
 
-  const { movieDetails, refetch } = useMovieDetails(movie);
-  const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch);
+  const { movieDetails, isDeleted } = useMovieDetails(movie);
   const movieInfo: MovieDetailsFragment = movieDetails ?? movie;
+
   const { mutateRatings: onRatingsPress } = useMovieRatingsMutation(movieInfo);
 
   return (
-    <ScrollView
-      refreshControl={
-        isOnline ? (
-          <RefreshControl
-            refreshing={isRefetchingByUser}
-            onRefresh={refetchByUser}
-            tintColor={theme.colors.primary}
-          />
-        ) : undefined
-      }
-    >
-      <View>
-        <View style={styles.rowAlign}>
-          <Title style={[{ color: theme.colors.accent }]}>
-            {movieInfo.title}
-          </Title>
+    <>
+      <ScrollView>
+        <View>
+          <View style={styles.rowAlign}>
+            <Title style={[{ color: theme.colors.accent }]}>
+              {movieInfo.title}
+            </Title>
+          </View>
+          <View style={styles.ratingsRow}>
+            <Ratings
+              value={movieInfo.ratings}
+              size={26}
+              color={theme.colors.primary}
+              onPress={!isDeleted ? onRatingsPress : () => {}}
+            />
+          </View>
+          {!movieDetails?.storyline ? (
+            <ActivityIndicator style={styles.activityIndicator} />
+          ) : (
+            <>
+              <View style={styles.rowAlign}>
+                <Paragraph style={[{ color: theme.colors.text }]}>
+                  {movieInfo.storyline}
+                </Paragraph>
+              </View>
+              <View style={styles.rowAlign}>
+                <Paragraph style={[{ color: theme.colors.info }]}>
+                  {movieInfo.genre}
+                </Paragraph>
+              </View>
+            </>
+          )}
         </View>
-        <View style={styles.ratingsRow}>
-          <Ratings
-            value={movieInfo.ratings}
-            size={26}
-            color={theme.colors.primary}
-            onPress={onRatingsPress}
-          />
-        </View>
-        {!movieDetails?.storyline ? (
-          <ActivityIndicator style={styles.activityIndicator} />
-        ) : (
-          <>
-            <View style={styles.rowAlign}>
-              <Paragraph style={[{ color: theme.colors.text }]}>
-                {movieInfo.storyline}
-              </Paragraph>
-            </View>
-            <View style={styles.rowAlign}>
-              <Paragraph style={[{ color: theme.colors.info }]}>
-                {movieInfo.genre}
-              </Paragraph>
-            </View>
-          </>
-        )}
-      </View>
-    </ScrollView>
+      </ScrollView>
+      <Snackbar
+        visible={isDeleted}
+        onDismiss={() => {}}
+        style={[{ backgroundColor: theme.colors.primary }]}
+      >
+        The movie has been deleted.
+      </Snackbar>
+    </>
   );
 }
 

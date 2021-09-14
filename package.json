@@ -39,6 +39,7 @@
     "expo-status-bar": "~1.0.4",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "graphql-ws": "^5.5.0",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-error-boundary": "^3.1.3",

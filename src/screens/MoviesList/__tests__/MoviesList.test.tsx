@@ -41,7 +41,7 @@ describe('MoviesList component tests', () => {
     expect(queryByTestId(LOADING_SCREEN)).toBeNull();
 
     // Check list size
-    expect(queryAllByTestId(LIST_ITEM)).toHaveLength(3);
+    expect(queryAllByTestId(LIST_ITEM)).toHaveLength(movies.length);
 
     // Check list items
     movies.forEach((movie) => {
@@ -49,8 +49,14 @@ describe('MoviesList component tests', () => {
       expect(queryByText(movie.title)).not.toBeNull();
     });
 
-    // Check if Rating Stars are displayed
-    expect(queryAllByTestId(STAR)).toHaveLength(6);
-    expect(queryAllByTestId(STAR_OUTLINED)).toHaveLength(9);
+    // Check if Ratings stars are displayed
+    const starsCount = movies.reduce(
+      (total, movie) => total + movie.ratings,
+      0
+    );
+    const outlinedStarsCount = 5 * movies.length - starsCount;
+
+    expect(queryAllByTestId(STAR)).toHaveLength(starsCount);
+    expect(queryAllByTestId(STAR_OUTLINED)).toHaveLength(outlinedStarsCount);
   });
 });

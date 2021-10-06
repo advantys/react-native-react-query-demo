@@ -24,7 +24,11 @@
     "hasura:console": "cd hasura; hasura console",
     "hasura:arm64:up": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml up",
     "hasura:arm64:down": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml down",
-    "hasura:arm64:logs": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml logs -f"
+    "hasura:arm64:logs": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml logs -f",
+    "test": "jest",
+    "test:watch": "yarn test --watch",
+    "test:coverage": "yarn test --coverage; open coverage/lcov-report/index.html",
+    "test:coverage:all": "yarn test --coverage --collectCoverageFrom='./src/**/(*.ts|*.tsx)'"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
@@ -32,6 +36,7 @@
     "@react-native-community/netinfo": "6.0.0",
     "@react-navigation/native": "^6.0.2",
     "@react-navigation/stack": "^6.0.7",
+    "@testing-library/react-native": "^7.2.0",
     "color": "^3.1.3",
     "expo": "^42.0.0",
     "expo-constants": "~11.0.1",
@@ -39,6 +44,7 @@
     "expo-status-bar": "~1.0.4",
     "graphql": "^15.5.0",
     "graphql-request": "^3.4.0",
+    "msw": "^0.26.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "react-error-boundary": "^3.1.3",

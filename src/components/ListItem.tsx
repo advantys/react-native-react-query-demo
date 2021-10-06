@@ -10,6 +10,7 @@ import { roundness } from '@app/styles/roundness';
 import { spacings } from '@app/styles/spacings';
 import { LIST_LEFT_SPACING } from '@app/styles/constants';
 import { MovieFragment } from '@app/services/graphql';
+import { LIST_ITEM } from '@app/test/testIDs';
 
 type Props = {
   item?: MovieFragment | null;
@@ -24,7 +25,11 @@ export function ListItem({ item, onPress }: Props) {
   const blueBackground = Color(theme.colors.primary).fade(0.85).toString();
 
   return (
-    <TouchableRipple onPress={() => onPress(item)} accessibilityRole="button">
+    <TouchableRipple
+      onPress={() => onPress(item)}
+      accessibilityRole="button"
+      testID={LIST_ITEM}
+    >
       <View style={styles.innerWrapper}>
         <View style={styles.topRow}>
           <View

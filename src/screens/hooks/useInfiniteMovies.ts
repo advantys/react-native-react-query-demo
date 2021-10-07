@@ -31,7 +31,10 @@ export function useInfiniteMovies() {
       );
     },
     {
-      getNextPageParam: (_lastPage, allPages) => {
+      getNextPageParam: (lastPage, allPages) => {
+        if (lastPage.movies.length < pageSize) {
+          return undefined;
+        }
         return allPages.length;
       },
       onSuccess: () => {

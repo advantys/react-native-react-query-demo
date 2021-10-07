@@ -13,7 +13,7 @@ import { useOnlineStatus } from '@app/providers/hooks/useOnlineStatus';
 import { useRefreshOnFocus } from '@app/hooks/useRefreshOnFocus';
 import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
 import { ListFooterComponent } from '@app/components/ListFooterComponent';
-import { MOVIES_LIST } from '@app/test/testIDs';
+import { MOVIES_LIST, REFRESH_CONTROL } from '@app/test/testIDs';
 
 type MoviesListScreenNavigationProp = StackNavigationProp<
   MainStack,
@@ -65,6 +65,7 @@ export function MoviesList({ navigation }: Props) {
               refreshing={isRefetchingByUser}
               onRefresh={refetchByUser}
               tintColor={theme.colors.primary}
+              testID={REFRESH_CONTROL}
             />
           ) : undefined
         }

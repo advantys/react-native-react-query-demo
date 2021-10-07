@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { fireEvent, within, act } from '@testing-library/react-native';
 
 import * as infiniteMovies from '@app/screens/hooks/useInfiniteMovies';
+import * as onlineStatus from '@app/providers/hooks/useOnlineStatus';
 import { render } from '@app/test/testUtils';
 import { MoviesListScreen } from '@app/screens/MoviesList';
 import {
@@ -11,6 +12,7 @@ import {
   LOADING_SCREEN,
   MOVIES_LIST,
   MOVIE_DETAILS,
+  REFRESH_CONTROL,
   STAR,
   STAR_OUTLINED,
 } from '@app/test/testIDs';
@@ -85,7 +87,7 @@ describe('MoviesList component tests', () => {
     expect(queryByTestId(ERROR_SCREEN)).not.toBeNull();
   });
 
-  it('Should navigate to the movie details sreen', async () => {
+  it('Should navigate to the movie details screen', async () => {
     const { findByTestId, queryByText } = render(<Component />);
 
     // Wait for the list to be loaded
@@ -140,5 +142,17 @@ describe('MoviesList component tests', () => {
     // Check that new movie items has been rendered
     await findByText(movies[20].title);
     await findByText(movies[20 + flatListinitialNumToRender - 1].title);
+  });
+
+  it('Should not display the refresh control in offline mode', async () => {
+    // We mock useOnlineStatus to simulate an offline mode
+    jest.spyOn(onlineStatus, 'useOnlineStatus').mockImplementation(() => false);
+    const { findByTestId, queryByTestId } = render(<Component />);
+
+    // Wait for the list to be loaded
+    await findByTestId(MOVIES_LIST);
+
+    // In offline mode the refresh control is not available
+    expect(queryByTestId(REFRESH_CONTROL)).toBeNull();
   });
 });

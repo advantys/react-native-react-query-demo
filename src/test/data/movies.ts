@@ -1,19 +1,15 @@
-export const movie1 = {
-  id: 1,
-  title: 'movie 1',
-  ratings: 1,
-};
+import { MovieFragment } from '@app/services/graphql';
 
-export const movie2 = {
-  id: 2,
-  title: 'movie 2',
-  ratings: 2,
-};
+function generateMovies() {
+  let movies: MovieFragment[] = [];
+  for (let i = 1; i <= 30; i++) {
+    movies.push({
+      id: i,
+      title: `movie ${i}`,
+      ratings: 3,
+    });
+  }
+  return movies;
+}
 
-export const movie3 = {
-  id: 3,
-  title: 'movie 3',
-  ratings: 3,
-};
-
-export const movies = [movie1, movie2, movie3];
+export const movies = generateMovies();

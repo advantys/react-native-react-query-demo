@@ -13,6 +13,7 @@ import { useOnlineStatus } from '@app/providers/hooks/useOnlineStatus';
 import { MovieDetailsFragment } from '@app/services/graphql';
 import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
 import { Ratings } from '@app/components/Ratings';
+import { MOVIE_DETAILS } from '@app/test/testIDs';
 
 type MovieDetailsScreenNavigationProp = StackNavigationProp<
   MainStack,
@@ -46,7 +47,7 @@ export function MovieDetails({ route }: Props) {
         ) : undefined
       }
     >
-      <View>
+      <View testID={MOVIE_DETAILS}>
         <View style={styles.rowAlign}>
           <Title style={[{ color: theme.colors.accent }]}>
             {movieInfo.title}

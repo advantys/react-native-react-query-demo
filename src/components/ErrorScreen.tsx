@@ -5,6 +5,7 @@ import { StyleSheet, View } from 'react-native';
 
 import { Paragraph } from './Typography/Paragraph';
 import { spacings } from '@app/styles/spacings';
+import { ERROR_SCREEN } from '@app/test/testIDs';
 
 type Props = FallbackProps & {
   message?: string;
@@ -14,7 +15,7 @@ export function ErrorScreen({ error, message, resetErrorBoundary }: Props) {
   const errorMessage = message || error.message;
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID={ERROR_SCREEN}>
       <Paragraph style={styles.errorMessage}>{errorMessage}</Paragraph>
       <Button mode="contained" onPress={resetErrorBoundary} uppercase={false}>
         Retry

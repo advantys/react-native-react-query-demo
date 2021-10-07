@@ -16,6 +16,7 @@ function createWrapper() {
     defaultOptions: {
       queries: {
         suspense: true,
+        retry: false,
       },
     },
   });

@@ -56,8 +56,9 @@ export function MoviesList({ navigation }: Props) {
   );
 
   return (
-    <View style={[styles.fill]} testID={MOVIES_LIST}>
+    <View style={[styles.fill]}>
       <FlatList
+        testID={MOVIES_LIST}
         refreshControl={
           isOnline ? (
             <RefreshControl

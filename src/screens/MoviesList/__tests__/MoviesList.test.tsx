@@ -1,23 +1,30 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { fireEvent, within, act } from '@testing-library/react-native';
 
+import * as infiniteMovies from '@app/screens/hooks/useInfiniteMovies';
 import { render } from '@app/test/testUtils';
 import { MoviesListScreen } from '@app/screens/MoviesList';
 import {
+  ERROR_SCREEN,
   LIST_ITEM,
   LOADING_SCREEN,
   MOVIES_LIST,
+  MOVIE_DETAILS,
   STAR,
   STAR_OUTLINED,
 } from '@app/test/testIDs';
 import { movies } from '@app/test/data/movies';
+import { MovieDetailsScreen } from '@app/screens/MovieDetails';
 
+const flatListinitialNumToRender = 10;
 const Stack = createStackNavigator();
 
 function StackNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="MoviesList" component={MoviesListScreen} />
+      <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
     </Stack.Navigator>
   );
 }
@@ -27,6 +34,12 @@ function Component() {
 }
 
 describe('MoviesList component tests', () => {
+  beforeEach(() => {
+    // We need to restore the functions mocked with spyOn
+    // for tests that need the actual function
+    jest.restoreAllMocks();
+  });
+
   it('Should display Movies list', async () => {
     const { queryAllByTestId, queryByTestId, findByTestId, queryByText } =
       render(<Component />);
@@ -37,26 +50,95 @@ describe('MoviesList component tests', () => {
     // When the data are fetched the movies list should be displayed
     expect(await findByTestId(MOVIES_LIST)).not.toBeNull();
 
-    // The loading screen should disapear when the items are fetched
+    // The loading screen should disappear when the items are fetched
     expect(queryByTestId(LOADING_SCREEN)).toBeNull();
 
     // Check list size
-    expect(queryAllByTestId(LIST_ITEM)).toHaveLength(movies.length);
+    // The FlatList create 10 items max even if we have 20 movies
+    expect(queryAllByTestId(LIST_ITEM)).toHaveLength(
+      flatListinitialNumToRender
+    );
 
     // Check list items
-    movies.forEach((movie) => {
-      expect(queryByText(`#${movie.id}`)).not.toBeNull();
-      expect(queryByText(movie.title)).not.toBeNull();
-    });
+    for (let i = 0; i < flatListinitialNumToRender; i++) {
+      expect(queryByText(`#${movies[i].id}`)).not.toBeNull();
+      expect(queryByText(movies[i].title)).not.toBeNull();
+    }
 
     // Check if Ratings stars are displayed
-    const starsCount = movies.reduce(
-      (total, movie) => total + movie.ratings,
-      0
-    );
-    const outlinedStarsCount = 5 * movies.length - starsCount;
+    const starsCount = movies
+      .slice(0, flatListinitialNumToRender)
+      .reduce((total, movie) => total + movie.ratings, 0);
+    const outlinedStarsCount = 5 * flatListinitialNumToRender - starsCount;
 
     expect(queryAllByTestId(STAR)).toHaveLength(starsCount);
     expect(queryAllByTestId(STAR_OUTLINED)).toHaveLength(outlinedStarsCount);
+  });
+
+  it('Should display the error screen if an exception is thrown', () => {
+    // We mock useInfiniteMovies to throw an error
+    jest.spyOn(infiniteMovies, 'useInfiniteMovies').mockImplementation(() => {
+      throw 'error';
+    });
+    const { queryByTestId } = render(<Component />);
+
+    expect(queryByTestId(ERROR_SCREEN)).not.toBeNull();
+  });
+
+  it('Should navigate to the movie details sreen', async () => {
+    const { findByTestId, queryByText } = render(<Component />);
+
+    // Wait for the list to be loaded
+    await findByTestId(MOVIES_LIST);
+
+    // Press list item
+    const listItem = await queryByText(movies[0].title);
+
+    // Need to use act to avoid jest warning
+    await act(async () => {
+      fireEvent.press(listItem);
+    });
+
+    // Should navigate the movie details screen
+    // This will raise a warning in the console due to the second use of await.
+    // Ref: https://github.com/callstack/react-native-testing-library/issues/379
+    const movieDetails = within(await findByTestId(MOVIE_DETAILS));
+
+    // The movie title should be the same as the list item's one
+    expect(movieDetails.queryByText(movies[0].title)).not.toBeNull();
+  });
+
+  it('Should fetch new page when scrolling', async () => {
+    const { findByTestId, findByText } = render(<Component />);
+
+    const moviesFlatList = await findByTestId(MOVIES_LIST);
+    expect(moviesFlatList).not.toBeNull();
+
+    // First scroll to display other items of the first page
+    fireEvent.scroll(moviesFlatList, {
+      nativeEvent: {
+        contentSize: { height: 600, width: 400 },
+        contentOffset: { y: 5000, x: 0 },
+        layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
+      },
+    });
+    // This will raise a warning in the console due to the second use of await.
+    // Ref: https://github.com/callstack/react-native-testing-library/issues/379
+    await findByText(movies[19].title);
+
+    // Second scroll to display new items of the second page
+    fireEvent.scroll(moviesFlatList, {
+      nativeEvent: {
+        contentSize: { height: 600, width: 400 },
+        contentOffset: { y: 5000, x: 0 },
+        layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
+      },
+    });
+    // This will raise a warning in the console due to the second use of await.
+    // Ref: https://github.com/callstack/react-native-testing-library/issues/379
+
+    // Check that new movie items has been rendered
+    await findByText(movies[20].title);
+    await findByText(movies[20 + flatListinitialNumToRender - 1].title);
   });
 });

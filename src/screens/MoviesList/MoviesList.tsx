@@ -49,7 +49,7 @@ export function MoviesList({ navigation }: Props) {
   }
 
   const renderItem = React.useCallback(
-    ({ item }: { item: MovieFragment | null }) => {
+    ({ item }: { item: MovieFragment }) => {
       return <ListItem item={item} onPress={onListItemPress} />;
     },
     [onListItemPress]
@@ -70,7 +70,7 @@ export function MoviesList({ navigation }: Props) {
           ) : undefined
         }
         data={movies}
-        keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         onEndReached={onEndReached}
         onEndReachedThreshold={1}

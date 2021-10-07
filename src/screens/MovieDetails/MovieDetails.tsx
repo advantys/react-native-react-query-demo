@@ -31,6 +31,7 @@ export function MovieDetails({ route }: Props) {
   const { movie } = route.params;
 
   const { movieDetails, refetch } = useMovieDetails(movie);
+
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch);
   const movieInfo: MovieDetailsFragment = movieDetails ?? movie;
   const { mutateRatings: onRatingsPress } = useMovieRatingsMutation(movieInfo);
@@ -46,8 +47,9 @@ export function MovieDetails({ route }: Props) {
           />
         ) : undefined
       }
+      testID={MOVIE_DETAILS}
     >
-      <View testID={MOVIE_DETAILS}>
+      <View>
         <View style={styles.rowAlign}>
           <Title style={[{ color: theme.colors.accent }]}>
             {movieInfo.title}

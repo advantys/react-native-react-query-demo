@@ -12,7 +12,6 @@ import {
   LOADING_SCREEN,
   MOVIES_LIST,
   MOVIE_DETAILS,
-  REFRESH_CONTROL,
   STAR,
   STAR_OUTLINED,
 } from '@app/test/testIDs';
@@ -144,15 +143,53 @@ describe('MoviesList component tests', () => {
     await findByText(movies[20 + flatListinitialNumToRender - 1].title);
   });
 
-  it('Should not display the refresh control in offline mode', async () => {
+  // eslint-disable-next-line jest/expect-expect
+  it('Should refetch on pull to refresh', async () => {
+    const { findByTestId } = render(<Component />);
+
+    const moviesFlatList = await findByTestId(MOVIES_LIST);
+
+    // First scroll to display other items of the first page
+    fireEvent.scroll(moviesFlatList, {
+      nativeEvent: {
+        contentSize: { height: 600, width: 400 },
+        contentOffset: { y: -15000, x: 0 },
+        layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
+      },
+    });
+
+    fireEvent.scroll(moviesFlatList, {
+      nativeEvent: {
+        contentSize: { height: 600, width: 400 },
+        contentOffset: { y: -15000, x: 0 },
+        layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
+      },
+    });
+  });
+
+  it('Should enable the refresh control in offline mode', async () => {
     // We mock useOnlineStatus to simulate an offline mode
-    jest.spyOn(onlineStatus, 'useOnlineStatus').mockImplementation(() => false);
-    const { findByTestId, queryByTestId } = render(<Component />);
+    jest.spyOn(onlineStatus, 'useOnlineStatus').mockImplementation(() => true);
+
+    const { findByTestId } = render(<Component />);
 
     // Wait for the list to be loaded
-    await findByTestId(MOVIES_LIST);
+    const moviesFlatList = await findByTestId(MOVIES_LIST);
 
     // In offline mode the refresh control is not available
-    expect(queryByTestId(REFRESH_CONTROL)).toBeNull();
+    expect(moviesFlatList.props['refreshControl']).not.toBeUndefined();
+  });
+
+  it('Should not enable the refresh control in offline mode', async () => {
+    // We mock useOnlineStatus to simulate an offline mode
+    jest.spyOn(onlineStatus, 'useOnlineStatus').mockImplementation(() => false);
+
+    const { findByTestId } = render(<Component />);
+
+    // Wait for the list to be loaded
+    const moviesFlatList = await findByTestId(MOVIES_LIST);
+
+    // In offline mode the refresh control is not available
+    expect(moviesFlatList.props['refreshControl']).toBeUndefined();
   });
 });

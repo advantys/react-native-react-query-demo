@@ -6,6 +6,5 @@ export const LOADING_SCREEN = 'LOADING_SCREEN';
 export const MOVIE_DETAILS = 'MOVIE_DETAILS';
 export const MOVIES_LIST = 'MOVIES_LIST';
 export const PARAGRAPH = 'PARAGRAPH';
-export const REFRESH_CONTROL = 'REFRESH_CONTROL';
 export const STAR = 'STAR';
 export const STAR_OUTLINED = 'STAR_OUTLINED';

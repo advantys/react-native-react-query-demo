@@ -3,15 +3,17 @@ import {
   MovieDetailsQuery,
   MovieDetailsQueryVariables,
 } from '@app/services/graphql';
-import { movie1Details } from '@app/test/data/movieDetails';
+import { moviesDetails } from '@app/test/data/movieDetails';
 
 export const movieDetailsQueryHandler = graphql.query<
   MovieDetailsQuery,
   MovieDetailsQueryVariables
 >('movieDetailsQuery', (req, res, ctx) => {
+  console.log(Date.now(), 'API', 'movieDetailsQuery', req.variables);
+
   return res(
     ctx.data({
-      movie: movie1Details,
+      movie: moviesDetails[req.variables.id - 1],
     })
   );
 });

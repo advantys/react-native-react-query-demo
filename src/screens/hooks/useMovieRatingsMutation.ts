@@ -15,5 +15,5 @@ export function useMovieRatingsMutation(movie: MovieFragment) {
     [movie, ratingsMutation]
   );
 
-  return { mutateRatings };
+  return { mutateRatings, isSuccess: ratingsMutation.isSuccess };
 }

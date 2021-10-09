@@ -21,17 +21,13 @@ import { MovieDetailsScreen } from '@app/screens/MovieDetails';
 const flatListinitialNumToRender = 10;
 const Stack = createStackNavigator();
 
-function StackNavigator() {
+function Component() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="MoviesList" component={MoviesListScreen} />
       <Stack.Screen name="MovieDetails" component={MovieDetailsScreen} />
     </Stack.Navigator>
   );
-}
-
-function Component() {
-  return StackNavigator();
 }
 
 describe('MoviesList component tests', () => {
@@ -93,7 +89,7 @@ describe('MoviesList component tests', () => {
     await findByTestId(MOVIES_LIST);
 
     // Press list item
-    const listItem = await queryByText(movies[0].title);
+    const listItem = queryByText(movies[0].title);
 
     // Need to use act to avoid jest warning
     await act(async () => {

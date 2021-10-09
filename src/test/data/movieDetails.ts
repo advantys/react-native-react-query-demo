@@ -1,9 +1,19 @@
 import { MovieDetailsFragment } from '@app/services/graphql';
 
-export const movie1Details: MovieDetailsFragment = {
-  id: 1,
-  title: `movie 1`,
-  ratings: 3,
-  storyline: 'storyline 1',
-  genre: 'drama',
-};
+function generateMoviesDetails() {
+  let movies: MovieDetailsFragment[] = [];
+  for (let i = 1; i <= 30; i++) {
+    movies.push({
+      id: i,
+      title: `movie ${i}`,
+      ratings: 3,
+      storyline: `storyline ${i}`,
+      genre: `genre ${i}`,
+    });
+  }
+  return movies;
+}
+
+export const moviesDetails = generateMoviesDetails();
+
+export const MOVIE_ID_MUTATION_ERROR = 10;

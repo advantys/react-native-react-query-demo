@@ -10,6 +10,8 @@ export const moviesQueryHandler = graphql.query<
   MoviesQuery,
   MoviesQueryVariables
 >('moviesQuery', (req, res, ctx) => {
+  console.log(Date.now(), 'API', 'moviesQuery', req.variables);
+
   const limit = req.variables.limit;
   const offset = req.variables.offset || 0;
 
@@ -23,7 +25,7 @@ export const moviesQueryHandler = graphql.query<
         ? []
         : movies.slice(offset - 1, offset + limit - 1);
   }
-  console.log('offset', offset, 'limit', limit, 'result', result);
+
   return res(
     ctx.data({
       movies: result,

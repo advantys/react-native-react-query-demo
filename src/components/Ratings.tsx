@@ -19,6 +19,8 @@ const Star = (
       key={index}
       testID={name == 'star' ? STAR : STAR_OUTLINED}
       onPress={() => onPress?.(index)}
+      accessibilityLabel={`star #${index} ${name}`}
+      accessibilityHint={`Set the ratings to ${index}`}
     >
       <Entypo
         key={index}

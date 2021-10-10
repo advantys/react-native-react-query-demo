@@ -9,16 +9,11 @@ type ThemeMode = {
   setThemeMode: (themeMode: ThemeModes) => void;
 };
 
-export const ThemeModeContext = React.createContext<ThemeMode | undefined>(
-  {} as unknown as ThemeMode
-);
+export const ThemeModeContext = React.createContext<ThemeMode | null>(null);
 
 type Props = {
   children: React.ReactNode;
-  themeMode: ThemeMode['themeMode'];
-  themeModeState: ThemeMode['themeModeState'];
-  setThemeMode: ThemeMode['setThemeMode'];
-};
+} & ThemeMode;
 
 export function ThemeModeProvider({
   children,

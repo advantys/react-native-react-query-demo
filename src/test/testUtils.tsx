@@ -11,7 +11,7 @@ import {
   GraphQLClientState,
 } from '@app/providers/GraphQLClientProvider';
 
-function createWrapper() {
+export function createWrapper() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: {

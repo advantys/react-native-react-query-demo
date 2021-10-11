@@ -53,10 +53,6 @@ function customRender(
   return render(component, { wrapper: createWrapper(), ...options });
 }
 
-function flushMicrotasksQueue() {
-  return new Promise((resolve) => setImmediate(resolve));
-}
-
 export * from '@testing-library/react-native';
 
-export { flushMicrotasksQueue, customRender as render };
+export { customRender as render };

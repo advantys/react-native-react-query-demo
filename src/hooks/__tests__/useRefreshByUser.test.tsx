@@ -1,7 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 
 import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
-import { act } from '@app/test/testUtils';
 
 describe('useRefreshByUser status hook tests', () => {
   beforeEach(() => {

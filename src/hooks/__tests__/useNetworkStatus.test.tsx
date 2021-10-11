@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react-hooks';
+import { renderHook, act } from '@testing-library/react-hooks';
 import NetInfo from '@react-native-community/netinfo';
 import {
   NetInfoState,
@@ -8,9 +8,8 @@ import {
 } from '@react-native-community/netinfo';
 
 import { useNetworkStatus } from '@app/hooks/useNetworkStatus';
-import { act } from '@app/test/testUtils';
 
-describe('useNetwork status hook tests', () => {
+describe('useNetworkStatus hook tests', () => {
   beforeEach(() => {
     jest.restoreAllMocks();
   });
@@ -19,7 +18,7 @@ describe('useNetwork status hook tests', () => {
     jest.restoreAllMocks();
   });
 
-  it('Should return the network status when connected', async () => {
+  it('Should return the network status', async () => {
     let handler: NetInfoChangeHandler = () => void 0;
 
     const spyAddEventListener = jest

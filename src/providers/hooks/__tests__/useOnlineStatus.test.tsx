@@ -14,6 +14,14 @@ const wrapper = ({ children }: WrapperProps) => {
 };
 
 describe('useOnlineStatus hook tests', () => {
+  beforeEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('Should throw an error if the hook is wrapped in a provider', () => {
     const { result } = renderHook(() => useOnlineStatus());
     expect(result.error).not.toBeNull();
@@ -24,6 +32,7 @@ describe('useOnlineStatus hook tests', () => {
       return {
         isConnected: true,
         isInternetReachable: true,
+        type: 'test',
       };
     });
     const { result } = renderHook(() => useOnlineStatus(), { wrapper });

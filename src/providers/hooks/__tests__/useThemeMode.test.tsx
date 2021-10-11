@@ -1,5 +1,6 @@
-import { renderHook } from '@testing-library/react-hooks';
 import React from 'react';
+import { renderHook } from '@testing-library/react-hooks';
+
 import { useThemeMode } from '@app/providers/hooks/useThemeMode';
 import { ThemeModeProvider } from '@app/providers/ThemeModeProvider';
 

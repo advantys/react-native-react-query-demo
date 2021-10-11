@@ -11,6 +11,7 @@ export function useQueryStatusLogging(
   text: string
 ) {
   React.useEffect(() => {
+    // isLoading is always false in Suspense mode
     if (isLoading) {
       console.log(Date.now(), `Loading ${text}`);
     }

@@ -9,10 +9,12 @@ describe('useRefreshOnFocus status hook tests', () => {
   it('Should return call the refetch function on the second screen focus', async () => {
     const spyRefetch = jest.fn();
 
-    const TestScreen = () => {
+    const TestScreen1 = () => {
       useRefreshOnFocus(spyRefetch);
       return null;
     };
+
+    const TestScreen2 = () => null;
 
     const navigation = React.createRef<any>();
     const Stack = createStackNavigator();
@@ -21,8 +23,8 @@ describe('useRefreshOnFocus status hook tests', () => {
       return (
         <NavigationContainer ref={navigation}>
           <Stack.Navigator>
-            <Stack.Screen name="screen1" component={TestScreen} />
-            <Stack.Screen name="screen2" component={() => null} />
+            <Stack.Screen name="screen1" component={TestScreen1} />
+            <Stack.Screen name="screen2" component={TestScreen2} />
           </Stack.Navigator>
         </NavigationContainer>
       );

@@ -78,19 +78,10 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "eslint": "^7.32.0",
     "eslint-import-resolver-alias": "^1.1.2",
+    "eslint-plugin-prettier": "^4.0.0",
     "jest": "^26.6.3",
     "jest-expo": "^42.0.0",
     "prettier": "^2.3.2",
-    "typescript": "~4.0.0"
-  },
-  "jest": {
-    "preset": "jest-expo",
-    "transformIgnorePatterns": [
-      "node_modules/(?!(jest-)?react-native|react-clone-referenced-element|@react-native-community|expo(nent)?|@expo(nent)?/.*|react-navigation|@react-navigation/.*|@unimodules/.*|unimodules|sentry-expo|native-base|@sentry/.*|crypto-es)"
-    ],
-    "setupFilesAfterEnv": [
-      "@testing-library/jest-native/extend-expect",
-      "./jest.setup.js"
-    ]
+    "typescript": "~4.4.3"
   }
 }

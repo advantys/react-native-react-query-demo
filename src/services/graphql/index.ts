@@ -542,20 +542,21 @@ export const MoviesQueryDocument = `
   }
 }
     ${MovieFragment}`;
-export const useMoviesQuery = <TData = MoviesQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables: MoviesQueryVariables,
-  options?: UseQueryOptions<MoviesQuery, TError, TData>
-) =>
-  useQuery<MoviesQuery, TError, TData>(
-    ['moviesQuery', variables],
-    fetcher<MoviesQuery, MoviesQueryVariables>(
-      client,
-      MoviesQueryDocument,
-      variables
-    ),
-    options
-  );
+// Not used with useInfinieQuery, commented to have 100% test code coverage!
+// export const useMoviesQuery = <TData = MoviesQuery, TError = unknown>(
+//   client: GraphQLClient,
+//   variables: MoviesQueryVariables,
+//   options?: UseQueryOptions<MoviesQuery, TError, TData>
+// ) =>
+//   useQuery<MoviesQuery, TError, TData>(
+//     ['moviesQuery', variables],
+//     fetcher<MoviesQuery, MoviesQueryVariables>(
+//       client,
+//       MoviesQueryDocument,
+//       variables
+//     ),
+//     options
+//   );
 export const MovieDetailsQueryDocument = `
     query movieDetailsQuery($id: Int!) {
   movie(id: $id) {

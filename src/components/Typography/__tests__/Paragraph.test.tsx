@@ -34,7 +34,7 @@ describe('Paragraph component tests', () => {
     );
 
     const paragraph = queryByTestId(PARAGRAPH);
-    expect(paragraph.props['style'][2][2][1][0]).toHaveProperty('fontSize', 14);
+    expect(paragraph).toHaveStyle({ fontSize: 14 });
   });
 
   it('Should apply the xs style', () => {
@@ -49,7 +49,7 @@ describe('Paragraph component tests', () => {
     );
 
     const paragraph = queryByTestId(PARAGRAPH);
-    expect(paragraph.props['style'][2][2][1][0]).toHaveProperty('fontSize', 11);
+    expect(paragraph).toHaveStyle({ fontSize: 11 });
   });
   it('Should apply the s style', () => {
     const Children = () => {
@@ -63,7 +63,7 @@ describe('Paragraph component tests', () => {
     );
 
     const paragraph = queryByTestId(PARAGRAPH);
-    expect(paragraph.props['style'][2][2][1][0]).toHaveProperty('fontSize', 12);
+    expect(paragraph).toHaveStyle({ fontSize: 12 });
   });
 
   it('Should apply the m style', () => {
@@ -78,7 +78,7 @@ describe('Paragraph component tests', () => {
     );
 
     const paragraph = queryByTestId(PARAGRAPH);
-    expect(paragraph.props['style'][2][2][1][0]).toHaveProperty('fontSize', 14);
+    expect(paragraph).toHaveStyle({ fontSize: 14 });
   });
 
   it('Should apply the l style', () => {
@@ -93,6 +93,6 @@ describe('Paragraph component tests', () => {
     );
 
     const paragraph = queryByTestId(PARAGRAPH);
-    expect(paragraph.props['style'][2][2][1][0]).toHaveProperty('fontSize', 16);
+    expect(paragraph).toHaveStyle({ fontSize: 16 });
   });
 });

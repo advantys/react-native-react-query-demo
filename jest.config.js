@@ -1,5 +1,4 @@
 module.exports = {
-  testEnvironment: 'jsdom',
   preset: 'jest-expo',
   testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
   collectCoverageFrom: [
@@ -7,7 +6,6 @@ module.exports = {
     '!**/coverage/**',
     '!**/node_modules/**',
     '!**/babel.config.js',
-    '!**/jest.setup.js',
     '!**/hasura/**',
     '!**/assets/**',
   ],
@@ -19,8 +17,5 @@ module.exports = {
     '\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$':
       require.resolve('./src/test/fileMock.js'),
   },
-  setupFilesAfterEnv: [
-    '@testing-library/jest-native/extend-expect',
-    './jest.setup.js',
-  ],
+  setupFilesAfterEnv: ['./src/test/testSetup.ts'],
 };

@@ -1,4 +1,6 @@
-import { server } from '@app/test/server';
+import '@testing-library/jest-native/extend-expect';
+
+import { server } from './server';
 
 // To avoid the following warning:
 // "Animated: `useNativeDriver` is not supported.."

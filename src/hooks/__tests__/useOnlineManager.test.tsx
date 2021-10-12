@@ -34,7 +34,6 @@ describe('useOnlineManager hook tests', () => {
     // Spy NetInfo addEventListener
     let handler: NetInfoChangeHandler = () => void 0;
     jest.spyOn(NetInfo, 'addEventListener').mockImplementation((listener) => {
-      console.log('mock', 'addEventListener', listener);
       handler = listener;
       return () => (handler = () => void 0);
     });

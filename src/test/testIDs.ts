@@ -1,4 +1,5 @@
 export const ACTIVITY_INDICATOR = 'ACTIVITY_INDICATOR';
+export const APP_NOT_READY = 'APP_NOT_READY';
 export const DIVIDER = 'DIVIDER';
 export const ERROR_SCREEN = 'ERROR_SCREEN';
 export const LIST_ITEM = 'LIST_ITEM';

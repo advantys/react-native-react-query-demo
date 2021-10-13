@@ -24,6 +24,7 @@ describe('useOnlineManager hook tests', () => {
     // Mock android platform
     jest.doMock('react-native/Libraries/Utilities/Platform', () => ({
       OS: 'android',
+      select: () => void 0,
     }));
 
     // Spy React-Query onlineManager
@@ -60,6 +61,7 @@ describe('useOnlineManager hook tests', () => {
     // Mock web platform
     jest.doMock('react-native/Libraries/Utilities/Platform', () => ({
       OS: 'web',
+      select: () => void 0,
     }));
 
     // Spy NetInfo addEventListener

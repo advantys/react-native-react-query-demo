@@ -5,7 +5,7 @@ import { useTheme } from 'react-native-paper';
 
 import { useInfiniteMovies } from '@app/screens/hooks/useInfiniteMovies';
 import { Divider } from '@app/components/Divider';
-import { MainStack } from '@app/navigation/types';
+import type { MainStack } from '@app/navigation/types';
 import { ListItem, LIST_ITEM_HEIGHT } from '@app/components/ListItem';
 import { LIST_LEFT_SPACING } from '@app/styles/constants';
 import { MovieFragment } from '@app/services/graphql';

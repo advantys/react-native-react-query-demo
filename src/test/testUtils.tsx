@@ -35,6 +35,7 @@ export function createWrapper(themeMode?: ColorSchemeName) {
   // Set the theme according to the provided theme mode
   const theme = themeMode === 'dark' ? DarkTheme : DefaultTheme;
   const themeModeState: ThemeModes = themeMode === 'dark' ? 'dark' : 'light';
+  const setThemeMode = () => void 0;
 
   const wrapper = ({ children }: { children: React.ReactNode }) => {
     return (
@@ -46,7 +47,7 @@ export function createWrapper(themeMode?: ColorSchemeName) {
                 <ThemeModeProvider
                   themeMode={themeMode}
                   themeModeState={themeModeState}
-                  setThemeMode={() => void 0}
+                  setThemeMode={setThemeMode}
                 >
                   <React.Suspense fallback={null}>{children}</React.Suspense>
                 </ThemeModeProvider>

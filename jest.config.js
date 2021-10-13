@@ -3,9 +3,12 @@ module.exports = {
   testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
   collectCoverageFrom: [
     '**/*.{ts,tsx}',
+    '!**/types.ts',
+    '!**/test/**',
     '!**/coverage/**',
     '!**/node_modules/**',
     '!**/babel.config.js',
+    '!**/app.config.ts',
     '!**/hasura/**',
     '!**/assets/**',
   ],

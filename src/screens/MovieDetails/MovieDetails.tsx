@@ -6,7 +6,7 @@ import { RouteProp } from '@react-navigation/native';
 
 import { useMovieDetails } from '@app/screens/hooks/useMovieDetails';
 import { useMovieRatingsMutation } from '@app/screens/hooks/useMovieRatingsMutation';
-import { MainStack } from '@app/navigation/types';
+import type { MainStack } from '@app/navigation/types';
 import { Paragraph } from '@app/components/Typography/Paragraph';
 import { spacings } from '@app/styles/spacings';
 import { useOnlineStatus } from '@app/providers/hooks/useOnlineStatus';

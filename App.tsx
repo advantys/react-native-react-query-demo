@@ -28,7 +28,6 @@ function onAppStateChange(status: AppStateStatus) {
 
   // React Query already supports in web browser refetch on window focus by default
   if (!isWEB) {
-    console.log(Platform.OS);
     focusManager.setFocused(status === 'active');
   }
 }

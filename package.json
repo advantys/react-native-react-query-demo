@@ -26,6 +26,7 @@
     "hasura:arm64:down": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml down",
     "hasura:arm64:logs": "cd hasura; docker-compose -f docker-compose.yml -f docker-compose.arm64.yml logs -f",
     "test": "jest",
+    "test:silent": "jest --silent --detectOpenHandles --forceExit",
     "test:watch": "yarn test --watch",
     "test:coverage": "yarn test --coverage; open coverage/lcov-report/index.html"
   },

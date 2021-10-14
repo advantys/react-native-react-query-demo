@@ -4,7 +4,7 @@ import ReactNative, { AppStateStatus } from 'react-native';
 import { focusManager } from 'react-query';
 
 import * as appStateHook from 'react-native-appstate-hook';
-import App from './App';
+import App from '../App';
 import { APP_NOT_READY } from '@app/test/testIDs';
 
 describe('App tests', () => {
@@ -44,7 +44,7 @@ describe('App tests', () => {
     expect(await findByTestId(APP_NOT_READY)).not.toBeNull();
   });
 
-  it('Should not call React Query focus manager', async () => {
+  it('Should call React Query focus manager when the app is active', async () => {
     const spySetFocused = jest.spyOn(focusManager, 'setFocused');
 
     let onChangeHandler: ((status: AppStateStatus) => void) | undefined;

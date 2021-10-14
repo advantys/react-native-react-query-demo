@@ -32,8 +32,10 @@ function Component() {
 
 describe('MoviesList component tests', () => {
   beforeEach(() => {
-    // We need to restore the functions mocked with spyOn
-    // for tests that need the actual function
+    jest.restoreAllMocks();
+  });
+
+  afterEach(() => {
     jest.restoreAllMocks();
   });
 
@@ -91,14 +93,12 @@ describe('MoviesList component tests', () => {
     // Press list item
     const listItem = queryByText(movies[0].title);
 
-    // Need to use act to avoid jest warning
     await act(async () => {
       fireEvent.press(listItem);
     });
 
     // Should navigate the movie details screen
-    // This will raise a warning in the console due to the second use of await.
-    // Ref: https://github.com/callstack/react-native-testing-library/issues/379
+
     const movieDetails = within(await findByTestId(MOVIE_DETAILS));
 
     // The movie title should be the same as the list item's one
@@ -119,8 +119,7 @@ describe('MoviesList component tests', () => {
         layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
       },
     });
-    // This will raise a warning in the console due to the second use of await.
-    // Ref: https://github.com/callstack/react-native-testing-library/issues/379
+
     await findByText(movies[19].title);
 
     // Second scroll to display new items of the second page
@@ -131,8 +130,6 @@ describe('MoviesList component tests', () => {
         layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
       },
     });
-    // This will raise a warning in the console due to the second use of await.
-    // Ref: https://github.com/callstack/react-native-testing-library/issues/379
 
     // Check that new movie items has been rendered
     await findByText(movies[20].title);

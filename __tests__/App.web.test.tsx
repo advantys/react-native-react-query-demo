@@ -4,7 +4,7 @@ import { AppStateStatus } from 'react-native';
 import { focusManager } from 'react-query';
 
 import * as appStateHook from 'react-native-appstate-hook';
-import App from './App';
+import App from '../App';
 
 describe('App tests', () => {
   beforeEach(() => {

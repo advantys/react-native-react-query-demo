@@ -15,5 +15,3 @@ function generateMoviesDetails() {
 }
 
 export const moviesDetails = generateMoviesDetails();
-
-export const MOVIE_ID_MUTATION_ERROR = 10;

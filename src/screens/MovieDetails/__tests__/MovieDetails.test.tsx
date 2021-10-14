@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { QueryObserverResult } from 'react-query';
+import { graphql } from 'msw';
 
 import * as movieDetailsHook from '@app/screens/hooks/useMovieDetails';
 import * as onlineStatus from '@app/providers/hooks/useOnlineStatus';
@@ -14,22 +15,24 @@ import {
   STAR_OUTLINED,
 } from '@app/test/testIDs';
 import { movies } from '@app/test/data/movies';
-import {
-  moviesDetails,
-  MOVIE_ID_MUTATION_ERROR,
-} from '@app/test/data/movieDetails';
+import { moviesDetails } from '@app/test/data/movieDetails';
 import { MovieDetailsScreen } from '@app/screens/MovieDetails';
-import { MovieDetailsFragment, MovieDetailsQuery } from '@app/services/graphql';
+import {
+  MovieDetailsQuery,
+  UpdateMovieRatingsMutation,
+  UpdateMovieRatingsMutationVariables,
+} from '@app/services/graphql';
+import { server } from '@app/test/server';
 
 const Stack = createStackNavigator();
 
-function Component({ movie }: { movie?: MovieDetailsFragment }) {
+function Component() {
   return (
     <Stack.Navigator>
       <Stack.Screen
         name="MovieDetails"
         component={MovieDetailsScreen}
-        initialParams={{ movie: movie ?? movies[0] }}
+        initialParams={{ movie: movies[0] }}
       />
     </Stack.Navigator>
   );
@@ -160,10 +163,27 @@ describe('MovieDetails component tests', () => {
       findAllByTestId,
       queryByA11yLabel,
       queryByTestId,
-    } = render(<Component movie={movies[MOVIE_ID_MUTATION_ERROR - 1]} />);
+    } = render(<Component />);
 
     expect(queryByTestId(RATINGS)).not.toBeNull();
     expect(queryAllByTestId(STAR).length).toBe(3);
+
+    // Mock the API mutation to throw a GraphQL error
+    server.use(
+      graphql.mutation<
+        UpdateMovieRatingsMutation,
+        UpdateMovieRatingsMutationVariables
+      >('updateMovieRatingsMutation', (req, res, ctx) => {
+        console.log(
+          Date.now(),
+          'API',
+          'updateMovieRatingsMutation',
+          'throw error',
+          req.variables
+        );
+        return res(ctx.errors([{ message: 'mutation error test' }]));
+      })
+    );
 
     // There are 3 stars filled (ratings equals 3 for movie #1)
     // Press on the first star

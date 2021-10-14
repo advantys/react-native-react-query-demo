@@ -47,8 +47,8 @@ export function useInfiniteMovies() {
 
   useQueryStatusLogging(queryInfo, `movies`);
 
-  const movies = queryInfo.data?.pages.reduce<Array<MovieFragment | null>>(
-    (prev: Array<MovieFragment | null>, curr) => {
+  const movies = queryInfo.data?.pages.reduce<Array<MovieFragment>>(
+    (prev: Array<MovieFragment>, curr) => {
       return [...prev, ...curr.movies];
     },
     []

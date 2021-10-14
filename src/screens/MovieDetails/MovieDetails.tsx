@@ -6,13 +6,14 @@ import { RouteProp } from '@react-navigation/native';
 
 import { useMovieDetails } from '@app/screens/hooks/useMovieDetails';
 import { useMovieRatingsMutation } from '@app/screens/hooks/useMovieRatingsMutation';
-import { MainStack } from '@app/navigation/types';
+import type { MainStack } from '@app/navigation/types';
 import { Paragraph } from '@app/components/Typography/Paragraph';
 import { spacings } from '@app/styles/spacings';
 import { useOnlineStatus } from '@app/providers/hooks/useOnlineStatus';
 import { MovieDetailsFragment } from '@app/services/graphql';
 import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
 import { Ratings } from '@app/components/Ratings';
+import { MOVIE_DETAILS, RATINGS, RATINGS_UPDATED } from '@app/test/testIDs';
 
 type MovieDetailsScreenNavigationProp = StackNavigationProp<
   MainStack,
@@ -30,9 +31,11 @@ export function MovieDetails({ route }: Props) {
   const { movie } = route.params;
 
   const { movieDetails, refetch } = useMovieDetails(movie);
+
   const { isRefetchingByUser, refetchByUser } = useRefreshByUser(refetch);
   const movieInfo: MovieDetailsFragment = movieDetails ?? movie;
-  const { mutateRatings: onRatingsPress } = useMovieRatingsMutation(movieInfo);
+  const { mutateRatings: onRatingsPress, isSuccess: isMutationSuccess } =
+    useMovieRatingsMutation(movieInfo);
 
   return (
     <ScrollView
@@ -45,6 +48,7 @@ export function MovieDetails({ route }: Props) {
           />
         ) : undefined
       }
+      testID={MOVIE_DETAILS}
     >
       <View>
         <View style={styles.rowAlign}>
@@ -52,7 +56,10 @@ export function MovieDetails({ route }: Props) {
             {movieInfo.title}
           </Title>
         </View>
-        <View style={styles.ratingsRow}>
+        <View
+          style={styles.ratingsRow}
+          testID={isMutationSuccess ? RATINGS_UPDATED : RATINGS}
+        >
           <Ratings
             value={movieInfo.ratings}
             size={26}

@@ -2,6 +2,9 @@ import React from 'react';
 import { Entypo } from '@expo/vector-icons';
 import { View, StyleSheet } from 'react-native';
 import { useTheme } from 'react-native-paper';
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
+
+import { STAR_OUTLINED, STAR } from '@app/test/testIDs';
 
 const Star = (
   index: number,
@@ -12,13 +15,20 @@ const Star = (
 ) => {
   const theme = useTheme();
   return (
-    <Entypo
+    <TouchableWithoutFeedback
       key={index}
-      name={name}
-      size={size}
-      color={color || theme.colors.accent}
+      testID={name == 'star' ? STAR : STAR_OUTLINED}
       onPress={() => onPress?.(index)}
-    />
+      accessibilityLabel={`star #${index} ${name}`}
+      accessibilityHint={`Set the ratings to ${index}`}
+    >
+      <Entypo
+        key={index}
+        name={name}
+        size={size}
+        color={color || theme.colors.accent}
+      />
+    </TouchableWithoutFeedback>
   );
 };
 

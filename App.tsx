@@ -18,14 +18,14 @@ import { MainStack } from '@app/navigation/MainStack';
 import { ThemeModeProvider } from '@app/providers/ThemeModeProvider';
 import { useCustomFonts } from '@app/hooks/useCustomFonts';
 import { initPersistor } from '@app/services/persistor';
-
-const isIOS = Platform.OS === 'ios';
-const isWEB = Platform.OS === 'web';
+import { APP_NOT_READY } from '@app/test/testIDs';
 
 // Load React Query cache from the async storage
 initPersistor(queryClient);
 
 function onAppStateChange(status: AppStateStatus) {
+  const isWEB = Platform.OS === 'web';
+
   // React Query already supports in web browser refetch on window focus by default
   if (!isWEB) {
     focusManager.setFocused(status === 'active');
@@ -33,6 +33,7 @@ function onAppStateChange(status: AppStateStatus) {
 }
 
 function getStatusBarStyle(themeColorScheme: ColorSchemeName) {
+  const isIOS = Platform.OS === 'ios';
   return themeColorScheme !== 'dark' ? (isIOS ? 'dark' : 'light') : 'light';
 }
 
@@ -51,7 +52,10 @@ export default function App() {
 
   if (!loaded || !isReady)
     return (
-      <View style={[styles.fill, { backgroundColor: theme.colors.primary }]} />
+      <View
+        style={[styles.fill, { backgroundColor: theme.colors.primary }]}
+        testID={APP_NOT_READY}
+      />
     );
 
   return (

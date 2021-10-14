@@ -9,10 +9,12 @@ export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K];
 };
-export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]?: Maybe<T[SubKey]> };
-export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
-  { [SubKey in K]: Maybe<T[SubKey]> };
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]?: Maybe<T[SubKey]>;
+};
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
+  [SubKey in K]: Maybe<T[SubKey]>;
+};
 
 function fetcher<TData, TVariables>(
   client: GraphQLClient,
@@ -542,20 +544,21 @@ export const MoviesQueryDocument = `
   }
 }
     ${MovieFragment}`;
-export const useMoviesQuery = <TData = MoviesQuery, TError = unknown>(
-  client: GraphQLClient,
-  variables: MoviesQueryVariables,
-  options?: UseQueryOptions<MoviesQuery, TError, TData>
-) =>
-  useQuery<MoviesQuery, TError, TData>(
-    ['moviesQuery', variables],
-    fetcher<MoviesQuery, MoviesQueryVariables>(
-      client,
-      MoviesQueryDocument,
-      variables
-    ),
-    options
-  );
+// Not used with useInfinieQuery, commented to have 100% test code coverage!
+// export const useMoviesQuery = <TData = MoviesQuery, TError = unknown>(
+//   client: GraphQLClient,
+//   variables: MoviesQueryVariables,
+//   options?: UseQueryOptions<MoviesQuery, TError, TData>
+// ) =>
+//   useQuery<MoviesQuery, TError, TData>(
+//     ['moviesQuery', variables],
+//     fetcher<MoviesQuery, MoviesQueryVariables>(
+//       client,
+//       MoviesQueryDocument,
+//       variables
+//     ),
+//     options
+//   );
 export const MovieDetailsQueryDocument = `
     query movieDetailsQuery($id: Int!) {
   movie(id: $id) {

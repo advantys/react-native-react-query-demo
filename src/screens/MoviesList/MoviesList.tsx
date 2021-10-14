@@ -5,7 +5,7 @@ import { useTheme } from 'react-native-paper';
 
 import { useInfiniteMovies } from '@app/screens/hooks/useInfiniteMovies';
 import { Divider } from '@app/components/Divider';
-import { MainStack } from '@app/navigation/types';
+import type { MainStack } from '@app/navigation/types';
 import { ListItem, LIST_ITEM_HEIGHT } from '@app/components/ListItem';
 import { LIST_LEFT_SPACING } from '@app/styles/constants';
 import { MovieFragment } from '@app/services/graphql';
@@ -13,6 +13,7 @@ import { useOnlineStatus } from '@app/providers/hooks/useOnlineStatus';
 import { useRefreshOnFocus } from '@app/hooks/useRefreshOnFocus';
 import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
 import { ListFooterComponent } from '@app/components/ListFooterComponent';
+import { MOVIES_LIST } from '@app/test/testIDs';
 
 type MoviesListScreenNavigationProp = StackNavigationProp<
   MainStack,
@@ -48,7 +49,7 @@ export function MoviesList({ navigation }: Props) {
   }
 
   const renderItem = React.useCallback(
-    ({ item }: { item: MovieFragment | null }) => {
+    ({ item }: { item: MovieFragment }) => {
       return <ListItem item={item} onPress={onListItemPress} />;
     },
     [onListItemPress]
@@ -57,6 +58,7 @@ export function MoviesList({ navigation }: Props) {
   return (
     <View style={[styles.fill]}>
       <FlatList
+        testID={MOVIES_LIST}
         refreshControl={
           isOnline ? (
             <RefreshControl
@@ -67,7 +69,7 @@ export function MoviesList({ navigation }: Props) {
           ) : undefined
         }
         data={movies}
-        keyExtractor={(item, index) => item?.id?.toString() || index.toString()}
+        keyExtractor={(item) => item.id.toString()}
         renderItem={renderItem}
         onEndReached={onEndReached}
         onEndReachedThreshold={1}

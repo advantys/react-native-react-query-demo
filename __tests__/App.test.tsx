@@ -1,5 +1,5 @@
 import React from 'react';
-import { act, render } from '@testing-library/react-native';
+import { render } from '@testing-library/react-native';
 import ReactNative, { AppStateStatus } from 'react-native';
 import { focusManager } from 'react-query';
 
@@ -59,9 +59,7 @@ describe('App tests', () => {
 
     expect(onChangeHandler).toBeDefined();
 
-    await act(async () => {
-      onChangeHandler?.('active');
-    });
+    onChangeHandler?.('active');
 
     expect(spySetFocused).toHaveBeenCalledWith(true);
   });

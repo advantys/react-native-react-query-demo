@@ -5,7 +5,7 @@ import { graphql } from 'msw';
 
 import * as movieDetailsHook from '@app/screens/hooks/useMovieDetails';
 import * as onlineStatus from '@app/providers/hooks/useOnlineStatus';
-import { render, fireEvent, act } from '@app/test/testUtils';
+import { render, fireEvent, waitFor } from '@app/test/testUtils';
 import {
   ERROR_SCREEN,
   MOVIE_DETAILS,
@@ -79,6 +79,7 @@ describe('MovieDetails component tests', () => {
           ),
       };
     });
+
     const { queryByTestId, queryByText, queryAllByTestId } = render(
       <Component />
     );
@@ -144,13 +145,11 @@ describe('MovieDetails component tests', () => {
 
     // There are 3 stars filled (ratings equals 3 for movie #1)
     // Press on the first star
-    await act(async () => {
-      fireEvent.press(getByA11yLabel('star #1 star'));
-    });
+    fireEvent.press(getByA11yLabel('star #1 star'));
 
     // Should optimistically update the ratings immediatly
     // So only 1 filled star is expected
-    expect(queryAllByTestId(STAR).length).toBe(1);
+    await waitFor(async () => expect(queryAllByTestId(STAR).length).toBe(1));
 
     // Should update the ratings from the API value
     expect(await findByTestId(RATINGS_UPDATED)).not.toBeNull();
@@ -158,8 +157,9 @@ describe('MovieDetails component tests', () => {
   });
 
   it('Should optimistically update the ratings and rollback if the API call fails', async () => {
-    const { queryAllByTestId, findAllByTestId, getByA11yLabel, queryByTestId } =
-      render(<Component />);
+    const { queryAllByTestId, getByA11yLabel, queryByTestId } = render(
+      <Component />
+    );
 
     expect(queryByTestId(RATINGS)).not.toBeNull();
     expect(queryAllByTestId(STAR).length).toBe(3);
@@ -182,23 +182,18 @@ describe('MovieDetails component tests', () => {
     );
 
     // There are 3 stars filled (ratings equals 3 for movie #1)
-    // Press on the first star
-    await act(async () => {
-      fireEvent.press(getByA11yLabel('star #1 star'));
-    });
+    expect(queryAllByTestId(STAR).length).toBe(3);
 
-    // Should optimistically update the ratings immediatly
+    // Press on the first star
+    fireEvent.press(getByA11yLabel('star #1 star'));
+
+    // Should optimistically update the ratings
     // So only 1 filled star is expected
-    // act is needed to make the last expect working
-    await act(async () => {
-      expect(queryAllByTestId(STAR).length).toBe(1);
-    });
+    await waitFor(async () => expect(queryAllByTestId(STAR).length).toBe(1));
 
     // Should rollback the ratings from the initial value
-    // act is needed to make the expect working
-    await act(async () => {
-      expect((await findAllByTestId(STAR)).length).toBe(3);
-    });
+    // because of the GraphQL error
+    await waitFor(async () => expect(queryAllByTestId(STAR).length).toBe(3));
   });
 
   it('Should reset the ratings to 0 when clicking the current ratings star', async () => {
@@ -210,13 +205,11 @@ describe('MovieDetails component tests', () => {
 
     // There are 3 stars filled (ratings equals 3 for movie #1)
     // Press on the third star
-    await act(async () => {
-      fireEvent.press(getByA11yLabel('star #3 star'));
-    });
+    fireEvent.press(getByA11yLabel('star #3 star'));
 
     // Should optimistically update the ratings immediatly
     // The ratings are reset to 0
-    expect(queryAllByTestId(STAR).length).toBe(0);
+    await waitFor(async () => expect(queryAllByTestId(STAR).length).toBe(0));
 
     // Should update the ratings from the API value
     expect(await findByTestId(RATINGS_UPDATED)).not.toBeNull();

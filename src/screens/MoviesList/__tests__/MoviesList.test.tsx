@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { fireEvent, within, act } from '@testing-library/react-native';
+import { fireEvent, within } from '@testing-library/react-native';
 
 import * as infiniteMovies from '@app/screens/hooks/useInfiniteMovies';
 import * as onlineStatus from '@app/providers/hooks/useOnlineStatus';
@@ -91,12 +91,9 @@ describe('MoviesList component tests', () => {
     await findByTestId(MOVIES_LIST);
 
     // Press list item
-    await act(async () => {
-      fireEvent.press(getByText(movies[0].title));
-    });
+    fireEvent.press(getByText(movies[0].title));
 
     // Should navigate the movie details screen
-
     const movieDetails = within(await findByTestId(MOVIE_DETAILS));
 
     // The movie title should be the same as the list item's one

@@ -20,14 +20,17 @@ describe('useRefreshByUser status hook tests', () => {
     expect(result.current.isRefetchingByUser).toBeFalsy();
 
     // Initiates a refresh
-    act(() => {
+    await act(async () => {
       result.current.refetchByUser();
     });
 
+    // Should call the refetch function
     expect(spyRefetch).toBeCalled();
-    expect(result.current.isRefetchingByUser).toBeTruthy();
 
-    // The refresh is completed
+    // Should set isRefetchingByUser to true
+    waitFor(() => expect(result.current.isRefetchingByUser).toBeTruthy());
+
+    // Should set isRefetchingByUser to false when the refetch is completed
     waitFor(() => expect(result.current.isRefetchingByUser).toBeFalsy());
   });
 });

@@ -27,11 +27,13 @@ describe('useInfiniteMovies hook tests', () => {
     expect(result.current.data?.pages.length).toBe(1);
 
     // Fetch the second page
-    await result.current.fetchNextPage();
+    result.current.fetchNextPage();
+    await waitForNextUpdate();
     expect(result.current.data?.pages.length).toBe(2);
 
     // No more pages to fetch
-    await result.current.fetchNextPage();
+    result.current.fetchNextPage();
+    await waitForNextUpdate();
     expect(result.current.data?.pages.length).toBe(2);
   });
 });

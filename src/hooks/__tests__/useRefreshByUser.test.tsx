@@ -1,7 +1,6 @@
 import { renderHook, act } from '@testing-library/react-hooks';
 
 import { useRefreshByUser } from '@app/hooks/useRefreshByUser';
-import { waitFor } from '@app/test/testUtils';
 
 describe('useRefreshByUser status hook tests', () => {
   beforeEach(() => {

@@ -34,13 +34,11 @@ describe('ErrorScreen component tests', () => {
     const error = new Error('error 1');
     const mockReset = jest.fn();
 
-    const { queryByText } = render(
+    const { getByText } = render(
       <ErrorScreen error={error} resetErrorBoundary={mockReset} />
     );
 
-    const retryButton = queryByText('Retry');
-
-    fireEvent.press(retryButton);
+    fireEvent.press(getByText('Retry'));
     expect(mockReset.mock.calls.length).toBe(1);
   });
 });

@@ -37,13 +37,13 @@ describe('ListItem component tests', () => {
       title: 'title 1',
       ratings: 1,
     };
+
     const mockOnPress = jest.fn();
-    const { queryByTestId } = render(
+    const { getByTestId } = render(
       <ListItem item={item} onPress={mockOnPress} />
     );
 
-    const pressableListItem = queryByTestId(LIST_ITEM);
-    fireEvent.press(pressableListItem);
+    fireEvent.press(getByTestId(LIST_ITEM));
     expect(mockOnPress.mock.calls.length).toBe(1);
   });
 });

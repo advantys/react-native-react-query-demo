@@ -136,7 +136,7 @@ describe('MovieDetails component tests', () => {
   });
 
   it('Should optimistically update the ratings', async () => {
-    const { queryAllByTestId, findByTestId, queryByA11yLabel, queryByTestId } =
+    const { queryAllByTestId, findByTestId, getByA11yLabel, queryByTestId } =
       render(<Component />);
 
     expect(queryByTestId(RATINGS)).not.toBeNull();
@@ -145,7 +145,7 @@ describe('MovieDetails component tests', () => {
     // There are 3 stars filled (ratings equals 3 for movie #1)
     // Press on the first star
     await act(async () => {
-      fireEvent.press(queryByA11yLabel('star #1 star'));
+      fireEvent.press(getByA11yLabel('star #1 star'));
     });
 
     // Should optimistically update the ratings immediatly
@@ -158,12 +158,8 @@ describe('MovieDetails component tests', () => {
   });
 
   it('Should optimistically update the ratings and rollback if the API call fails', async () => {
-    const {
-      queryAllByTestId,
-      findAllByTestId,
-      queryByA11yLabel,
-      queryByTestId,
-    } = render(<Component />);
+    const { queryAllByTestId, findAllByTestId, getByA11yLabel, queryByTestId } =
+      render(<Component />);
 
     expect(queryByTestId(RATINGS)).not.toBeNull();
     expect(queryAllByTestId(STAR).length).toBe(3);
@@ -188,7 +184,7 @@ describe('MovieDetails component tests', () => {
     // There are 3 stars filled (ratings equals 3 for movie #1)
     // Press on the first star
     await act(async () => {
-      fireEvent.press(queryByA11yLabel('star #1 star'));
+      fireEvent.press(getByA11yLabel('star #1 star'));
     });
 
     // Should optimistically update the ratings immediatly
@@ -206,7 +202,7 @@ describe('MovieDetails component tests', () => {
   });
 
   it('Should reset the ratings to 0 when clicking the current ratings star', async () => {
-    const { queryAllByTestId, findByTestId, queryByA11yLabel, queryByTestId } =
+    const { queryAllByTestId, findByTestId, getByA11yLabel, queryByTestId } =
       render(<Component />);
 
     expect(queryByTestId(RATINGS)).not.toBeNull();
@@ -215,7 +211,7 @@ describe('MovieDetails component tests', () => {
     // There are 3 stars filled (ratings equals 3 for movie #1)
     // Press on the third star
     await act(async () => {
-      fireEvent.press(queryByA11yLabel('star #3 star'));
+      fireEvent.press(getByA11yLabel('star #3 star'));
     });
 
     // Should optimistically update the ratings immediatly

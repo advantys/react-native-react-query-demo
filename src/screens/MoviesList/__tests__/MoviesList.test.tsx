@@ -85,16 +85,14 @@ describe('MoviesList component tests', () => {
   });
 
   it('Should navigate to the movie details screen', async () => {
-    const { findByTestId, queryByText } = render(<Component />);
+    const { findByTestId, getByText } = render(<Component />);
 
     // Wait for the list to be loaded
     await findByTestId(MOVIES_LIST);
 
     // Press list item
-    const listItem = queryByText(movies[0].title);
-
     await act(async () => {
-      fireEvent.press(listItem);
+      fireEvent.press(getByText(movies[0].title));
     });
 
     // Should navigate the movie details screen

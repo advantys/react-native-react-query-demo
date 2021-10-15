@@ -1,6 +1,5 @@
 module.exports = {
   preset: 'jest-expo',
-  testMatch: ['**/?(*.)+(spec|test).ts?(x)'],
   collectCoverageFrom: [
     '**/*.{ts,tsx}',
     '!**/coverage/**',

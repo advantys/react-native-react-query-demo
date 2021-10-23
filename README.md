@@ -137,6 +137,7 @@ To generate types and operations with GraphQL code generator (Hasura must be up)
 - [X] FlatList with infinite queries
 - [X] Cache persistence in the Async storage
 - [X] GraphQL subscriptions
+- [X] 100% test code coverage (`main` branch only)
 
 ## Branches
 - `main` Demo app with infinite list, async storage persistor and optimistic updates

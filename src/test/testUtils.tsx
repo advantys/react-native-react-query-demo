@@ -24,10 +24,7 @@ export function createWrapper(themeMode?: ColorSchemeName) {
         retry: false,
         // Prevent "Jest did not exit one second after the test run completed"
         // https://github.com/tannerlinsley/react-query/issues/1847
-        // and "A worker process has failed to exit gracefully and has been force exited"
-        // Need to be > 0 because if 0 useInfiniteQuery will loop.
-        // https://github.com/tannerlinsley/react-query/issues/2367
-        cacheTime: 1,
+        cacheTime: Infinity,
       },
     },
   });

@@ -35,7 +35,7 @@ describe('useInfiniteMovies hook tests', () => {
 
     // No more pages to fetch
     result.current.fetchNextPage();
-    await waitForNextUpdate();
+
     await waitFor(() => expect(result.current.data?.pages.length).toBe(2), {
       interval: 5, // For Apple Silicon!
     });

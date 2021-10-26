@@ -189,7 +189,9 @@ describe('MovieDetails component tests', () => {
 
     // Should optimistically update the ratings
     // So only 1 filled star is expected
-    await waitFor(async () => expect(queryAllByTestId(STAR).length).toBe(1));
+    await waitFor(async () => expect(queryAllByTestId(STAR).length).toBe(1), {
+      interval: 5, // For Apple Silicon!
+    });
 
     // Should rollback the ratings from the initial value
     // because of the GraphQL error

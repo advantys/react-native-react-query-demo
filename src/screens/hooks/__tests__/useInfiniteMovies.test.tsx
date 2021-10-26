@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react-hooks';
 
-import { createWrapper } from '@app/test/testUtils';
+import { createWrapper, waitFor } from '@app/test/testUtils';
 import { useInfiniteMovies } from '@app/screens/hooks/useInfiniteMovies';
 
 describe('useInfiniteMovies hook tests', () => {
@@ -28,12 +28,16 @@ describe('useInfiniteMovies hook tests', () => {
 
     // Fetch the second page
     result.current.fetchNextPage();
-    await waitForNextUpdate();
-    expect(result.current.data?.pages.length).toBe(2);
+
+    await waitFor(() => expect(result.current.data?.pages.length).toBe(2), {
+      interval: 5, // For Apple Silicon!
+    });
 
     // No more pages to fetch
     result.current.fetchNextPage();
     await waitForNextUpdate();
-    expect(result.current.data?.pages.length).toBe(2);
+    await waitFor(() => expect(result.current.data?.pages.length).toBe(2), {
+      interval: 5, // For Apple Silicon!
+    });
   });
 });

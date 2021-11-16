@@ -32,7 +32,7 @@ describe('useNetworkStatus hook tests', () => {
     expect(addEventListenerSpy).toBeCalled();
 
     // Mock a connected event
-    const mockConnectedInfoState: NetInfoState = {
+    const connectedInfoStateMock: NetInfoState = {
       isConnected: true,
       isInternetReachable: null,
       type: NetInfoStateType.other,
@@ -40,13 +40,13 @@ describe('useNetworkStatus hook tests', () => {
     };
 
     await act(async () => {
-      handler(mockConnectedInfoState);
+      handler(connectedInfoStateMock);
     });
 
     expect(result.current.isConnected).toBeTruthy();
 
     // Mock a disconnected event
-    const mockDisconnectedInfoState: NetInfoDisconnectedStates = {
+    const disconnectedInfoStateMock: NetInfoDisconnectedStates = {
       isConnected: false,
       isInternetReachable: false,
       type: NetInfoStateType.none,
@@ -54,7 +54,7 @@ describe('useNetworkStatus hook tests', () => {
     };
 
     await act(async () => {
-      handler(mockDisconnectedInfoState);
+      handler(disconnectedInfoStateMock);
     });
 
     expect(result.current.isConnected).toBeFalsy();

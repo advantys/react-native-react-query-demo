@@ -15,13 +15,13 @@ describe('Ratings component tests', () => {
   });
 
   it('Should call the onPress function', () => {
-    const mockOnPress = jest.fn();
+    const onPressMock = jest.fn();
     const { queryAllByTestId } = render(
-      <Ratings value={2} size={10} onPress={mockOnPress} />
+      <Ratings value={2} size={10} onPress={onPressMock} />
     );
 
     const pressableStars = queryAllByTestId(STAR);
     fireEvent.press(pressableStars[1]);
-    expect(mockOnPress.mock.calls.length).toBe(1);
+    expect(onPressMock.mock.calls.length).toBe(1);
   });
 });

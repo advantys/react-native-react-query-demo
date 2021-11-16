@@ -32,13 +32,13 @@ describe('ErrorScreen component tests', () => {
 
   it('Should call the resetErrorBoundary reset function', () => {
     const error = new Error('error 1');
-    const mockReset = jest.fn();
+    const resetMock = jest.fn();
 
     const { getByText } = render(
-      <ErrorScreen error={error} resetErrorBoundary={mockReset} />
+      <ErrorScreen error={error} resetErrorBoundary={resetMock} />
     );
 
     fireEvent.press(getByText('Retry'));
-    expect(mockReset.mock.calls.length).toBe(1);
+    expect(resetMock.mock.calls.length).toBe(1);
   });
 });

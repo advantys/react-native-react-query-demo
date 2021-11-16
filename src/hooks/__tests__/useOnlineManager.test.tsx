@@ -28,7 +28,7 @@ describe('useOnlineManager hook tests', () => {
     }));
 
     // Spy React-Query onlineManager
-    const spySetOnline = jest
+    const setOnlineSpy = jest
       .spyOn(onlineManager, 'setOnline')
       .mockImplementation((isOnline) => isOnline);
 
@@ -54,7 +54,7 @@ describe('useOnlineManager hook tests', () => {
     });
 
     // setOnline should be called if not web platform
-    expect(spySetOnline.mock.calls.length).toBe(1);
+    expect(setOnlineSpy.mock.calls.length).toBe(1);
   });
 
   it('Should not call addEventListener if web platform', async () => {
@@ -65,11 +65,11 @@ describe('useOnlineManager hook tests', () => {
     }));
 
     // Spy NetInfo addEventListener
-    const spyAddEventListener = jest.spyOn(NetInfo, 'addEventListener');
+    const addEventListenerSpy = jest.spyOn(NetInfo, 'addEventListener');
 
     renderHook(() => useOnlineManager());
 
     // Should not be call addEventListener
-    expect(spyAddEventListener.mock.calls.length).toBe(0);
+    expect(addEventListenerSpy.mock.calls.length).toBe(0);
   });
 });

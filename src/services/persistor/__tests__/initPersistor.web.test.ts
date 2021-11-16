@@ -18,13 +18,13 @@ describe('initPersistor in web mode tests', () => {
       select: () => void 0,
     }));
 
-    const spyPersistQueryClient = jest.spyOn(
+    const persistQueryClientSpy = jest.spyOn(
       persistQueryClientExp,
       'persistQueryClient'
     );
 
     initPersistor(queryClient);
 
-    expect(spyPersistQueryClient).toBeCalled();
+    expect(persistQueryClientSpy).toBeCalled();
   });
 });

@@ -15,13 +15,13 @@ describe('useThemeMode custom hook tests', () => {
   });
 
   it('Should expose the theme mode', () => {
-    const spySetThemeMode = jest.fn();
+    const setThemeModeSpy = jest.fn();
 
     const wrapper = ({ children }: WrapperProps) => {
       return (
         <ThemeModeProvider
           themeMode={'light'}
-          setThemeMode={spySetThemeMode}
+          setThemeMode={setThemeModeSpy}
           themeModeState={'auto'}
         >
           {children}
@@ -34,6 +34,6 @@ describe('useThemeMode custom hook tests', () => {
     expect(result.current.themeModeState).toEqual('auto');
 
     result.current.setThemeMode('dark');
-    expect(spySetThemeMode.mock.calls.length).toEqual(1);
+    expect(setThemeModeSpy.mock.calls.length).toEqual(1);
   });
 });

@@ -110,7 +110,7 @@ describe('MovieDetails component tests', () => {
     expect(queryByTestId(ERROR_SCREEN)).not.toBeNull();
   });
 
-  it('Should enable the refresh control in offline mode', async () => {
+  it('Should enable the refresh control in online mode', async () => {
     // We mock useOnlineStatus to simulate an offline mode
     jest.spyOn(onlineStatus, 'useOnlineStatus').mockImplementation(() => true);
 
@@ -119,7 +119,7 @@ describe('MovieDetails component tests', () => {
     // Wait for the list to be loaded
     const moviesFlatList = await findByTestId(MOVIE_DETAILS);
 
-    // In offline mode the refresh control is not available
+    // In online mode the refresh control is available
     expect(moviesFlatList.props['refreshControl']).not.toBeUndefined();
   });
 

@@ -45,7 +45,7 @@ describe('App tests', () => {
   });
 
   it('Should call React Query focus manager when the app is active', async () => {
-    const spySetFocused = jest.spyOn(focusManager, 'setFocused');
+    const setFocusedSpy = jest.spyOn(focusManager, 'setFocused');
 
     let onChangeHandler: ((status: AppStateStatus) => void) | undefined;
     jest.spyOn(appStateHook, 'default').mockImplementation((settings) => {
@@ -61,6 +61,6 @@ describe('App tests', () => {
 
     onChangeHandler?.('active');
 
-    expect(spySetFocused).toHaveBeenCalledWith(true);
+    expect(setFocusedSpy).toHaveBeenCalledWith(true);
   });
 });

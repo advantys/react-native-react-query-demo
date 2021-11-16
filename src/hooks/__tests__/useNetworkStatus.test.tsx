@@ -21,7 +21,7 @@ describe('useNetworkStatus hook tests', () => {
   it('Should return the network status', async () => {
     let handler: NetInfoChangeHandler = () => void 0;
 
-    const spyAddEventListener = jest
+    const addEventListenerSpy = jest
       .spyOn(NetInfo, 'addEventListener')
       .mockImplementation((listener) => {
         handler = listener;
@@ -29,7 +29,7 @@ describe('useNetworkStatus hook tests', () => {
       });
     const { result } = renderHook(() => useNetworkStatus());
 
-    expect(spyAddEventListener).toBeCalled();
+    expect(addEventListenerSpy).toBeCalled();
 
     // Mock a connected event
     const mockConnectedInfoState: NetInfoState = {

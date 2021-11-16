@@ -13,8 +13,8 @@ describe('initPersistor tests', () => {
   });
 
   it('Should call get the cache from the async storage', async () => {
-    const spyGetItem = jest.spyOn(AsyncStorage, 'getItem');
+    const getItemSpy = jest.spyOn(AsyncStorage, 'getItem');
     initPersistor(queryClient);
-    expect(spyGetItem).toBeCalledWith('REACT_QUERY_OFFLINE_CACHE');
+    expect(getItemSpy).toBeCalledWith('REACT_QUERY_OFFLINE_CACHE');
   });
 });

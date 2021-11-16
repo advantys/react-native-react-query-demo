@@ -12,10 +12,10 @@ describe('useRefreshByUser status hook tests', () => {
   });
 
   it('Should return the fetch status', async () => {
-    const spyRefetch = jest
+    const refetchSpy = jest
       .fn()
       .mockImplementation(() => Promise.resolve(setImmediate));
-    const { result, waitFor } = renderHook(() => useRefreshByUser(spyRefetch));
+    const { result, waitFor } = renderHook(() => useRefreshByUser(refetchSpy));
 
     expect(result.current.isRefetchingByUser).toBeFalsy();
 
@@ -25,7 +25,7 @@ describe('useRefreshByUser status hook tests', () => {
     });
 
     // Should call the refetch function
-    expect(spyRefetch).toBeCalled();
+    expect(refetchSpy).toBeCalled();
 
     // Should set isRefetchingByUser to true
     waitFor(() => expect(result.current.isRefetchingByUser).toBeTruthy());

@@ -22,7 +22,7 @@ describe('App tests', () => {
       select: () => void 0,
     }));
 
-    const spySetFocused = jest.spyOn(focusManager, 'setFocused');
+    const setFocusedSpy = jest.spyOn(focusManager, 'setFocused');
 
     let onChangeHandler: ((status: AppStateStatus) => void) | undefined;
     jest.spyOn(appStateHook, 'default').mockImplementation((settings) => {
@@ -38,6 +38,6 @@ describe('App tests', () => {
 
     onChangeHandler?.('active');
 
-    expect(spySetFocused).not.toHaveBeenCalled();
+    expect(setFocusedSpy).not.toHaveBeenCalled();
   });
 });

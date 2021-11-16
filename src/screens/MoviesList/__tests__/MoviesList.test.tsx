@@ -131,30 +131,6 @@ describe('MoviesList component tests', () => {
     await findByText(movies[20 + flatListinitialNumToRender - 1].title);
   });
 
-  // eslint-disable-next-line jest/expect-expect
-  it('Should refetch on pull to refresh', async () => {
-    const { findByTestId } = render(<Component />);
-
-    const moviesFlatList = await findByTestId(MOVIES_LIST);
-
-    // First scroll to display other items of the first page
-    fireEvent.scroll(moviesFlatList, {
-      nativeEvent: {
-        contentSize: { height: 600, width: 400 },
-        contentOffset: { y: -15000, x: 0 },
-        layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
-      },
-    });
-
-    fireEvent.scroll(moviesFlatList, {
-      nativeEvent: {
-        contentSize: { height: 600, width: 400 },
-        contentOffset: { y: -15000, x: 0 },
-        layoutMeasurement: { height: 100, width: 100 }, // Dimensions of the device
-      },
-    });
-  });
-
   it('Should enable the refresh control in offline mode', async () => {
     // We mock useOnlineStatus to simulate an offline mode
     jest.spyOn(onlineStatus, 'useOnlineStatus').mockImplementation(() => true);

@@ -37,7 +37,7 @@ export function useUpdateMovieRatings() {
     onSuccess: (data) => {
       const id = data.updateMovie?.id;
       console.log(Date.now(), 'Movie #', id, 'update succeed');
-      queryClient.invalidateQueries('moviesQuery');
+      queryClient.invalidateQueries('moviesQuery.infinite');
     },
     onError: (err, updatedMovie, context: any) => {
       console.log(Date.now(), 'Movie #', updatedMovie.id, 'update error', err);

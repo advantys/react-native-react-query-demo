@@ -10,6 +10,7 @@ module.exports = {
     '!**/test/**',
     '!**/hasura/**',
     '!**/assets/**',
+    '!**/services/graphql/index.ts',
   ],
   moduleFileExtensions: ['js', 'ts', 'tsx'],
   transformIgnorePatterns: [

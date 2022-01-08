@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import useAppState from 'react-native-appstate-hook';
+
 import { StatusBar } from 'expo-status-bar';
 import { ColorSchemeName, Platform, View, StyleSheet } from 'react-native';
 import { focusManager, QueryClientProvider } from 'react-query';
@@ -8,6 +8,7 @@ import { Provider as PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AppStateStatus } from 'react-native';
 
+import { useAppState } from '@app/hooks/useAppState';
 import { useThemeState } from '@app/hooks/useThemeState';
 import { DefaultTheme, DarkTheme } from '@app/styles/themes';
 import { NetworkStatusProvider } from '@app/providers/NetworkStatusProvider';
@@ -42,9 +43,7 @@ export default function App() {
   const { isReady, themeMode, themeModeState, setThemeModeState } =
     useThemeState();
 
-  useAppState({
-    onChange: onAppStateChange,
-  });
+  useAppState(onAppStateChange);
 
   useOnlineManager();
 

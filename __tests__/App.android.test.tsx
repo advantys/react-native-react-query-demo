@@ -1,8 +1,8 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 
-import * as appStateHook from 'react-native-appstate-hook';
 import App from '../App';
+import * as appStateHook from '@app/hooks/useAppState';
 import { APP_NOT_READY } from '@app/test/testIDs';
 
 describe('App tests', () => {
@@ -21,11 +21,9 @@ describe('App tests', () => {
       select: () => void 0,
     }));
 
-    jest.spyOn(appStateHook, 'default').mockImplementation((_settings) => {
-      return {
-        appState: 'active',
-      };
-    });
+    jest
+      .spyOn(appStateHook, 'useAppState')
+      .mockImplementation((_onChange) => {});
 
     const { findByTestId } = render(<App />);
 

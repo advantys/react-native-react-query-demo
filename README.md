@@ -62,22 +62,6 @@ To start Hasura with Postgres run:
 
 ```
 
-To start Hasura with Postgres on Apple Silicon (M1) run:
-
-```sh
-  # Run Hasura
-  yarn hasura:arm64:up
-
-  # Stop Hasura
-  yarn hasura:arm64:down
-
-  # Display Hasura logs
-  yarn hasura:arm64:logs
-
-  # Launch the console using Hasura CLI or go to http://localhost:8080
-  yarn hasura:arm64:console
-```
-
 Hasura will create the demo database and the associated metadata during its first launch.
 You can open the Hasura console at this address http://localhost:8080.
 

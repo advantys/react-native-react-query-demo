@@ -6,6 +6,6 @@ describe('useAppState hook tests', () => {
   it('Should not call the app change handler', async () => {
     const onAppChange = jest.fn().mockImplementation(() => void 0);
     renderHook(() => useAppState(onAppChange));
-    expect(onAppChange).not.toBeCalled();
+    expect(onAppChange).not.toHaveBeenCalled();
   });
 });

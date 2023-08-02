@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { QueryObserverResult } from 'react-query';
+import { QueryObserverResult } from '@tanstack/react-query';
 import { graphql } from 'msw';
 
 import * as movieDetailsHook from '@app/screens/hooks/useMovieDetails';

@@ -4,7 +4,17 @@ import { server } from './server';
 
 // To avoid the following warning:
 // "Animated: `useNativeDriver` is not supported.."
-jest.mock('react-native/Libraries/Animated/src/NativeAnimatedHelper');
+jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
+
+// Fix https://github.com/expo/expo/issues/21434
+jest.mock('expo-font', () => ({
+  useFonts: () => [true, null],
+}));
+jest.mock('expo-asset');
+
+jest.mock('@react-native-async-storage/async-storage', () =>
+  require('@react-native-async-storage/async-storage/jest/async-storage-mock')
+);
 
 // Establish API mocking before all tests.
 beforeAll(() => {

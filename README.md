@@ -27,7 +27,7 @@ GraphQL subscription support example has been added.
 
 ## Requirements
 
-- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) (SDK 42)
+- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) (SDK 49)
 - [Docker](https://docs.docker.com/desktop/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 

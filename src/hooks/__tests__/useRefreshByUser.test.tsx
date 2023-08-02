@@ -25,7 +25,7 @@ describe('useRefreshByUser status hook tests', () => {
     });
 
     // Should call the refetch function
-    expect(refetchSpy).toBeCalled();
+    expect(refetchSpy).toHaveBeenCalled();
 
     // Should set isRefetchingByUser to true
     waitFor(() => expect(result.current.isRefetchingByUser).toBeTruthy());

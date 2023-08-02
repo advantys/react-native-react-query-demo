@@ -7,7 +7,7 @@ import {
   UseInfiniteQueryOptions,
   useMutation,
   UseMutationOptions,
-} from 'react-query';
+} from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -593,7 +593,7 @@ export const MovieDetailsQueryDocument = `
     ${MovieDetailsFragment}`;
 export const useMovieDetailsQuery = <
   TData = MovieDetailsQuery,
-  TError = unknown
+  TError = unknown,
 >(
   client: GraphQLClient,
   variables: MovieDetailsQueryVariables,
@@ -612,7 +612,7 @@ export const useMovieDetailsQuery = <
   );
 export const useInfiniteMovieDetailsQuery = <
   TData = MovieDetailsQuery,
-  TError = unknown
+  TError = unknown,
 >(
   pageParamKey: keyof MovieDetailsQueryVariables,
   client: GraphQLClient,
@@ -642,7 +642,7 @@ export const UpdateMovieRatingsMutationDocument = `
     ${MovieFragment}`;
 export const useUpdateMovieRatingsMutation = <
   TError = unknown,
-  TContext = unknown
+  TContext = unknown,
 >(
   client: GraphQLClient,
   options?: UseMutationOptions<
@@ -659,7 +659,7 @@ export const useUpdateMovieRatingsMutation = <
     UpdateMovieRatingsMutationVariables,
     TContext
   >(
-    'updateMovieRatingsMutation',
+    ['updateMovieRatingsMutation'],
     (variables?: UpdateMovieRatingsMutationVariables) =>
       fetcher<UpdateMovieRatingsMutation, UpdateMovieRatingsMutationVariables>(
         client,

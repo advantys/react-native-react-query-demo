@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react-native';
 import ReactNative, { AppStateStatus } from 'react-native';
-import { focusManager } from 'react-query';
+import { focusManager } from '@tanstack/react-query';
 
 import App from '../App';
 import * as appStateHook from '@app/hooks/useAppState';

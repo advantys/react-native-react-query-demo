@@ -29,7 +29,7 @@ describe('useNetworkStatus hook tests', () => {
       });
     const { result } = renderHook(() => useNetworkStatus());
 
-    expect(addEventListenerSpy).toBeCalled();
+    expect(addEventListenerSpy).toHaveBeenCalled();
 
     // Mock a connected event
     const connectedInfoStateMock: NetInfoState = {

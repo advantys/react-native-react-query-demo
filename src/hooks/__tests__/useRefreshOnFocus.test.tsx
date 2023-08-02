@@ -33,12 +33,12 @@ describe('useRefreshOnFocus status hook tests', () => {
     render(<Container />);
 
     // Should not refetch on the first screen1 focus
-    expect(refetchSpy).not.toBeCalled();
+    expect(refetchSpy).not.toHaveBeenCalled();
 
     await act(async () => navigation.current.navigate('screen2'));
 
     // Should refetch on the second screen1 focus
     await act(async () => navigation.current.navigate('screen1'));
-    expect(refetchSpy).toBeCalled();
+    expect(refetchSpy).toHaveBeenCalled();
   });
 });

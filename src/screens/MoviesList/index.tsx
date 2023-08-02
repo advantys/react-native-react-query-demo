@@ -1,7 +1,7 @@
 import { StackNavigationProp } from '@react-navigation/stack';
 import React from 'react';
 import { ErrorBoundary } from 'react-error-boundary';
-import { QueryErrorResetBoundary } from 'react-query';
+import { QueryErrorResetBoundary } from '@tanstack/react-query';
 import { MoviesList } from './MoviesList';
 import type { MainStack as MainStackType } from '@app/navigation/types';
 import { LoadingScreen } from '@app/components/LoadingScreen';

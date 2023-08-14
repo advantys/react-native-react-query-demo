@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { GraphQLClient } from 'graphql-request';
 import { Provider as PaperProvider } from 'react-native-paper';
 import { render, RenderOptions } from '@testing-library/react-native';
-import { QueryClient, QueryClientProvider } from 'react-query';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ColorSchemeName } from 'react-native';
 
 import { ThemeModeProvider } from '@app/providers/ThemeModeProvider';

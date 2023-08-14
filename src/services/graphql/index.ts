@@ -2,12 +2,12 @@ import { GraphQLClient } from 'graphql-request';
 import { RequestInit } from 'graphql-request/dist/types.dom';
 import {
   useQuery,
-  UseQueryOptions,
   useInfiniteQuery,
-  UseInfiniteQueryOptions,
   useMutation,
+  UseQueryOptions,
+  UseInfiniteQueryOptions,
   UseMutationOptions,
-} from 'react-query';
+} from '@tanstack/react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = {
@@ -19,82 +19,95 @@ export type MakeOptional<T, K extends keyof T> = Omit<T, K> & {
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & {
   [SubKey in K]: Maybe<T[SubKey]>;
 };
+export type MakeEmpty<
+  T extends { [key: string]: unknown },
+  K extends keyof T,
+> = { [_ in K]?: never };
+export type Incremental<T> =
+  | T
+  | {
+      [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never;
+    };
 
-function fetcher<TData, TVariables>(
+function fetcher<TData, TVariables extends { [key: string]: any }>(
   client: GraphQLClient,
   query: string,
   variables?: TVariables,
-  headers?: RequestInit['headers']
+  requestHeaders?: RequestInit['headers']
 ) {
   return async (): Promise<TData> =>
-    client.request<TData, TVariables>(query, variables, headers);
+    client.request({
+      document: query,
+      variables,
+      requestHeaders,
+    });
 }
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
-  ID: string;
-  String: string;
-  Boolean: boolean;
-  Int: number;
-  Float: number;
-  timestamptz: any;
+  ID: { input: string; output: string };
+  String: { input: string; output: string };
+  Boolean: { input: boolean; output: boolean };
+  Int: { input: number; output: number };
+  Float: { input: number; output: number };
+  timestamptz: { input: any; output: any };
 };
 
 /** Boolean expression to compare columns of type "Int". All fields are combined with logical 'AND'. */
 export type Int_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['Int']>;
-  _gt?: InputMaybe<Scalars['Int']>;
-  _gte?: InputMaybe<Scalars['Int']>;
-  _in?: InputMaybe<Array<Scalars['Int']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['Int']>;
-  _lte?: InputMaybe<Scalars['Int']>;
-  _neq?: InputMaybe<Scalars['Int']>;
-  _nin?: InputMaybe<Array<Scalars['Int']>>;
+  _eq?: InputMaybe<Scalars['Int']['input']>;
+  _gt?: InputMaybe<Scalars['Int']['input']>;
+  _gte?: InputMaybe<Scalars['Int']['input']>;
+  _in?: InputMaybe<Array<Scalars['Int']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['Int']['input']>;
+  _lte?: InputMaybe<Scalars['Int']['input']>;
+  _neq?: InputMaybe<Scalars['Int']['input']>;
+  _nin?: InputMaybe<Array<Scalars['Int']['input']>>;
 };
 
 /** Boolean expression to compare columns of type "String". All fields are combined with logical 'AND'. */
 export type String_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['String']>;
-  _gt?: InputMaybe<Scalars['String']>;
-  _gte?: InputMaybe<Scalars['String']>;
+  _eq?: InputMaybe<Scalars['String']['input']>;
+  _gt?: InputMaybe<Scalars['String']['input']>;
+  _gte?: InputMaybe<Scalars['String']['input']>;
   /** does the column match the given case-insensitive pattern */
-  _ilike?: InputMaybe<Scalars['String']>;
-  _in?: InputMaybe<Array<Scalars['String']>>;
+  _ilike?: InputMaybe<Scalars['String']['input']>;
+  _in?: InputMaybe<Array<Scalars['String']['input']>>;
   /** does the column match the given POSIX regular expression, case insensitive */
-  _iregex?: InputMaybe<Scalars['String']>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _iregex?: InputMaybe<Scalars['String']['input']>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
   /** does the column match the given pattern */
-  _like?: InputMaybe<Scalars['String']>;
-  _lt?: InputMaybe<Scalars['String']>;
-  _lte?: InputMaybe<Scalars['String']>;
-  _neq?: InputMaybe<Scalars['String']>;
+  _like?: InputMaybe<Scalars['String']['input']>;
+  _lt?: InputMaybe<Scalars['String']['input']>;
+  _lte?: InputMaybe<Scalars['String']['input']>;
+  _neq?: InputMaybe<Scalars['String']['input']>;
   /** does the column NOT match the given case-insensitive pattern */
-  _nilike?: InputMaybe<Scalars['String']>;
-  _nin?: InputMaybe<Array<Scalars['String']>>;
+  _nilike?: InputMaybe<Scalars['String']['input']>;
+  _nin?: InputMaybe<Array<Scalars['String']['input']>>;
   /** does the column NOT match the given POSIX regular expression, case insensitive */
-  _niregex?: InputMaybe<Scalars['String']>;
+  _niregex?: InputMaybe<Scalars['String']['input']>;
   /** does the column NOT match the given pattern */
-  _nlike?: InputMaybe<Scalars['String']>;
+  _nlike?: InputMaybe<Scalars['String']['input']>;
   /** does the column NOT match the given POSIX regular expression, case sensitive */
-  _nregex?: InputMaybe<Scalars['String']>;
+  _nregex?: InputMaybe<Scalars['String']['input']>;
   /** does the column NOT match the given SQL regular expression */
-  _nsimilar?: InputMaybe<Scalars['String']>;
+  _nsimilar?: InputMaybe<Scalars['String']['input']>;
   /** does the column match the given POSIX regular expression, case sensitive */
-  _regex?: InputMaybe<Scalars['String']>;
+  _regex?: InputMaybe<Scalars['String']['input']>;
   /** does the column match the given SQL regular expression */
-  _similar?: InputMaybe<Scalars['String']>;
+  _similar?: InputMaybe<Scalars['String']['input']>;
 };
 
 /** columns and relationships of "movies" */
 export type Movies = {
   __typename?: 'movies';
-  created_at: Scalars['timestamptz'];
-  genre?: Maybe<Scalars['String']>;
-  id: Scalars['Int'];
-  ratings: Scalars['Int'];
-  storyline?: Maybe<Scalars['String']>;
-  title: Scalars['String'];
-  updated_at: Scalars['timestamptz'];
+  created_at: Scalars['timestamptz']['output'];
+  genre?: Maybe<Scalars['String']['output']>;
+  id: Scalars['Int']['output'];
+  ratings: Scalars['Int']['output'];
+  storyline?: Maybe<Scalars['String']['output']>;
+  title: Scalars['String']['output'];
+  updated_at: Scalars['timestamptz']['output'];
 };
 
 /** aggregated selection of "movies" */
@@ -108,7 +121,7 @@ export type Movies_Aggregate = {
 export type Movies_Aggregate_Fields = {
   __typename?: 'movies_aggregate_fields';
   avg?: Maybe<Movies_Avg_Fields>;
-  count: Scalars['Int'];
+  count: Scalars['Int']['output'];
   max?: Maybe<Movies_Max_Fields>;
   min?: Maybe<Movies_Min_Fields>;
   stddev?: Maybe<Movies_Stddev_Fields>;
@@ -123,14 +136,14 @@ export type Movies_Aggregate_Fields = {
 /** aggregate fields of "movies" */
 export type Movies_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Movies_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
+  distinct?: InputMaybe<Scalars['Boolean']['input']>;
 };
 
 /** aggregate avg on columns */
 export type Movies_Avg_Fields = {
   __typename?: 'movies_avg_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** Boolean expression to filter rows from the table "movies". All fields are combined with a logical 'AND'. */
@@ -155,50 +168,50 @@ export enum Movies_Constraint {
 
 /** input type for incrementing numeric columns in table "movies" */
 export type Movies_Inc_Input = {
-  id?: InputMaybe<Scalars['Int']>;
-  ratings?: InputMaybe<Scalars['Int']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  ratings?: InputMaybe<Scalars['Int']['input']>;
 };
 
 /** input type for inserting data into table "movies" */
 export type Movies_Insert_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  genre?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  ratings?: InputMaybe<Scalars['Int']>;
-  storyline?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  genre?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  ratings?: InputMaybe<Scalars['Int']['input']>;
+  storyline?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** aggregate max on columns */
 export type Movies_Max_Fields = {
   __typename?: 'movies_max_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  genre?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  ratings?: Maybe<Scalars['Int']>;
-  storyline?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  genre?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  ratings?: Maybe<Scalars['Int']['output']>;
+  storyline?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
 /** aggregate min on columns */
 export type Movies_Min_Fields = {
   __typename?: 'movies_min_fields';
-  created_at?: Maybe<Scalars['timestamptz']>;
-  genre?: Maybe<Scalars['String']>;
-  id?: Maybe<Scalars['Int']>;
-  ratings?: Maybe<Scalars['Int']>;
-  storyline?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
-  updated_at?: Maybe<Scalars['timestamptz']>;
+  created_at?: Maybe<Scalars['timestamptz']['output']>;
+  genre?: Maybe<Scalars['String']['output']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  ratings?: Maybe<Scalars['Int']['output']>;
+  storyline?: Maybe<Scalars['String']['output']>;
+  title?: Maybe<Scalars['String']['output']>;
+  updated_at?: Maybe<Scalars['timestamptz']['output']>;
 };
 
 /** response of any mutation on the table "movies" */
 export type Movies_Mutation_Response = {
   __typename?: 'movies_mutation_response';
   /** number of rows affected by the mutation */
-  affected_rows: Scalars['Int'];
+  affected_rows: Scalars['Int']['output'];
   /** data from the rows affected by the mutation */
   returning: Array<Movies>;
 };
@@ -223,7 +236,7 @@ export type Movies_Order_By = {
 
 /** primary key columns input for table: movies */
 export type Movies_Pk_Columns_Input = {
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 };
 
 /** select columns of table "movies" */
@@ -246,41 +259,41 @@ export enum Movies_Select_Column {
 
 /** input type for updating data in table "movies" */
 export type Movies_Set_Input = {
-  created_at?: InputMaybe<Scalars['timestamptz']>;
-  genre?: InputMaybe<Scalars['String']>;
-  id?: InputMaybe<Scalars['Int']>;
-  ratings?: InputMaybe<Scalars['Int']>;
-  storyline?: InputMaybe<Scalars['String']>;
-  title?: InputMaybe<Scalars['String']>;
-  updated_at?: InputMaybe<Scalars['timestamptz']>;
+  created_at?: InputMaybe<Scalars['timestamptz']['input']>;
+  genre?: InputMaybe<Scalars['String']['input']>;
+  id?: InputMaybe<Scalars['Int']['input']>;
+  ratings?: InputMaybe<Scalars['Int']['input']>;
+  storyline?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
+  updated_at?: InputMaybe<Scalars['timestamptz']['input']>;
 };
 
 /** aggregate stddev on columns */
 export type Movies_Stddev_Fields = {
   __typename?: 'movies_stddev_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Movies_Stddev_Pop_Fields = {
   __typename?: 'movies_stddev_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Movies_Stddev_Samp_Fields = {
   __typename?: 'movies_stddev_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate sum on columns */
 export type Movies_Sum_Fields = {
   __typename?: 'movies_sum_fields';
-  id?: Maybe<Scalars['Int']>;
-  ratings?: Maybe<Scalars['Int']>;
+  id?: Maybe<Scalars['Int']['output']>;
+  ratings?: Maybe<Scalars['Int']['output']>;
 };
 
 /** update columns of table "movies" */
@@ -304,22 +317,22 @@ export enum Movies_Update_Column {
 /** aggregate var_pop on columns */
 export type Movies_Var_Pop_Fields = {
   __typename?: 'movies_var_pop_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate var_samp on columns */
 export type Movies_Var_Samp_Fields = {
   __typename?: 'movies_var_samp_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** aggregate variance on columns */
 export type Movies_Variance_Fields = {
   __typename?: 'movies_variance_fields';
-  id?: Maybe<Scalars['Float']>;
-  ratings?: Maybe<Scalars['Float']>;
+  id?: Maybe<Scalars['Float']['output']>;
+  ratings?: Maybe<Scalars['Float']['output']>;
 };
 
 /** mutation root */
@@ -346,7 +359,7 @@ export type Mutation_RootDelete_MoviesArgs = {
 
 /** mutation root */
 export type Mutation_RootDelete_Movies_By_PkArgs = {
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 };
 
 /** mutation root */
@@ -402,21 +415,21 @@ export type Query_Root = {
 };
 
 export type Query_RootMovieArgs = {
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 };
 
 export type Query_RootMoviesArgs = {
   distinct_on?: InputMaybe<Array<Movies_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Movies_Order_By>>;
   where?: InputMaybe<Movies_Bool_Exp>;
 };
 
 export type Query_RootMovies_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Movies_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Movies_Order_By>>;
   where?: InputMaybe<Movies_Bool_Exp>;
 };
@@ -432,36 +445,36 @@ export type Subscription_Root = {
 };
 
 export type Subscription_RootMovieArgs = {
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 };
 
 export type Subscription_RootMoviesArgs = {
   distinct_on?: InputMaybe<Array<Movies_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Movies_Order_By>>;
   where?: InputMaybe<Movies_Bool_Exp>;
 };
 
 export type Subscription_RootMovies_AggregateArgs = {
   distinct_on?: InputMaybe<Array<Movies_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
+  limit?: InputMaybe<Scalars['Int']['input']>;
+  offset?: InputMaybe<Scalars['Int']['input']>;
   order_by?: InputMaybe<Array<Movies_Order_By>>;
   where?: InputMaybe<Movies_Bool_Exp>;
 };
 
 /** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
 export type Timestamptz_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['timestamptz']>;
-  _gt?: InputMaybe<Scalars['timestamptz']>;
-  _gte?: InputMaybe<Scalars['timestamptz']>;
-  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['timestamptz']>;
-  _lte?: InputMaybe<Scalars['timestamptz']>;
-  _neq?: InputMaybe<Scalars['timestamptz']>;
-  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
+  _eq?: InputMaybe<Scalars['timestamptz']['input']>;
+  _gt?: InputMaybe<Scalars['timestamptz']['input']>;
+  _gte?: InputMaybe<Scalars['timestamptz']['input']>;
+  _in?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']['input']>;
+  _lt?: InputMaybe<Scalars['timestamptz']['input']>;
+  _lte?: InputMaybe<Scalars['timestamptz']['input']>;
+  _neq?: InputMaybe<Scalars['timestamptz']['input']>;
+  _nin?: InputMaybe<Array<Scalars['timestamptz']['input']>>;
 };
 
 export type MovieFragment = {
@@ -475,14 +488,14 @@ export type MovieDetailsFragment = {
   __typename?: 'movies';
   id: number;
   title: string;
-  storyline?: Maybe<string>;
-  genre?: Maybe<string>;
+  storyline?: string | null;
+  genre?: string | null;
   ratings: number;
 };
 
 export type MoviesQueryVariables = Exact<{
-  offset?: Scalars['Int'];
-  limit: Scalars['Int'];
+  offset?: Scalars['Int']['input'];
+  limit: Scalars['Int']['input'];
 }>;
 
 export type MoviesQuery = {
@@ -496,34 +509,34 @@ export type MoviesQuery = {
 };
 
 export type MovieDetailsQueryVariables = Exact<{
-  id: Scalars['Int'];
+  id: Scalars['Int']['input'];
 }>;
 
 export type MovieDetailsQuery = {
   __typename?: 'query_root';
-  movie?: Maybe<{
+  movie?: {
     __typename?: 'movies';
     id: number;
     title: string;
-    storyline?: Maybe<string>;
-    genre?: Maybe<string>;
+    storyline?: string | null;
+    genre?: string | null;
     ratings: number;
-  }>;
+  } | null;
 };
 
 export type UpdateMovieRatingsMutationVariables = Exact<{
-  id: Scalars['Int'];
-  ratings?: Maybe<Scalars['Int']>;
+  id: Scalars['Int']['input'];
+  ratings?: Maybe<Scalars['Int']['input']>;
 }>;
 
 export type UpdateMovieRatingsMutation = {
   __typename?: 'mutation_root';
-  updateMovie?: Maybe<{
+  updateMovie?: {
     __typename?: 'movies';
     id: number;
     title: string;
     ratings: number;
-  }>;
+  } | null;
 };
 
 export const MovieFragment = `
@@ -593,7 +606,7 @@ export const MovieDetailsQueryDocument = `
     ${MovieDetailsFragment}`;
 export const useMovieDetailsQuery = <
   TData = MovieDetailsQuery,
-  TError = unknown
+  TError = unknown,
 >(
   client: GraphQLClient,
   variables: MovieDetailsQueryVariables,
@@ -612,7 +625,7 @@ export const useMovieDetailsQuery = <
   );
 export const useInfiniteMovieDetailsQuery = <
   TData = MovieDetailsQuery,
-  TError = unknown
+  TError = unknown,
 >(
   pageParamKey: keyof MovieDetailsQueryVariables,
   client: GraphQLClient,
@@ -642,7 +655,7 @@ export const UpdateMovieRatingsMutationDocument = `
     ${MovieFragment}`;
 export const useUpdateMovieRatingsMutation = <
   TError = unknown,
-  TContext = unknown
+  TContext = unknown,
 >(
   client: GraphQLClient,
   options?: UseMutationOptions<
@@ -659,7 +672,7 @@ export const useUpdateMovieRatingsMutation = <
     UpdateMovieRatingsMutationVariables,
     TContext
   >(
-    'updateMovieRatingsMutation',
+    ['updateMovieRatingsMutation'],
     (variables?: UpdateMovieRatingsMutationVariables) =>
       fetcher<UpdateMovieRatingsMutation, UpdateMovieRatingsMutationVariables>(
         client,

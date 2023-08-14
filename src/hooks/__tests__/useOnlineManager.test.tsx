@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react-hooks';
-import { onlineManager } from 'react-query';
+import { onlineManager } from '@tanstack/react-query';
 import NetInfo from '@react-native-community/netinfo';
 import {
   NetInfoState,

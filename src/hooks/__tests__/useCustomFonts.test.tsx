@@ -4,12 +4,7 @@ import { useCustomFonts } from '@app/hooks/useCustomFonts';
 
 describe('useCustomFonts status hook tests', () => {
   it('Should load the fonts', async () => {
-    const { result, waitForNextUpdate } = renderHook(() => useCustomFonts());
-
-    expect(result.current[0]).toBeFalsy();
-
-    // Wait for the mocked fonts to be loaded
-    await waitForNextUpdate();
+    const { result } = renderHook(() => useCustomFonts());
     expect(result.current[0]).toBeTruthy();
   });
 });

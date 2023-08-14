@@ -125,11 +125,11 @@ To generate types and operations with GraphQL code generator (Hasura must be up)
 
 ## Branches with SDK 49
 - `main` Demo app with infinite list, async storage persistor and optimistic updates
+- `graphql-subscriptions` the movie details screen is updated with GraphQL subscriptions
 
 ## Branches with SDK 42
 - `simple-list` Demo app using a simple movies FlatList
 - `movies-list-optimistic-update` The movies list is optimistically updated after a movie mutation 
-- `graphql-subscriptions` the movie details screen is updated with GraphQL subscriptions
 
 ## Notes
 - This app uses many auto-refetch and cache invalidation possibilities but you may have to select the ones you really need for your app in production.

@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { useGraphQLClient } from '@app/providers/hooks/useGraphQLClient';
 import { MovieDetailsFragment } from '@app/services/graphql';
@@ -34,7 +34,7 @@ export const useMovieDetailsSubscription = (id: number) => {
             setIsDeleted(true);
           }
           if (!isFirstResponse.current) {
-            queryClient.invalidateQueries('moviesQuery');
+            queryClient.invalidateQueries(['moviesQuery']);
           }
           isFirstResponse.current = false;
         },

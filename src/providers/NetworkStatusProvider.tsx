@@ -7,10 +7,9 @@ type NetworkStatus = {
   isInternetReachable: boolean | null | undefined;
 };
 
-export const NetworkStatusContext = React.createContext<NetworkStatus>({
-  isConnected: true,
-  isInternetReachable: true,
-});
+export const NetworkStatusContext = React.createContext<NetworkStatus | null>(
+  null
+);
 
 type Props = {
   children: React.ReactNode;

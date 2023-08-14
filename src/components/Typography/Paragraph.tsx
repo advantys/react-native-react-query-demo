@@ -2,6 +2,8 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { Paragraph as PaperParagraph } from 'react-native-paper';
 
+import { PARAGRAPH } from '@app/test/testIDs';
+
 type Size = 'xs' | 's' | 'm' | 'l';
 
 export function Paragraph({
@@ -16,6 +18,7 @@ export function Paragraph({
         props.style,
         styles.text,
       ]}
+      testID={PARAGRAPH}
     />
   );
 }

@@ -1,0 +1,13 @@
+export const ACTIVITY_INDICATOR = 'ACTIVITY_INDICATOR';
+export const APP_NOT_READY = 'APP_NOT_READY';
+export const DIVIDER = 'DIVIDER';
+export const ERROR_SCREEN = 'ERROR_SCREEN';
+export const LIST_ITEM = 'LIST_ITEM';
+export const LOADING_SCREEN = 'LOADING_SCREEN';
+export const MOVIE_DETAILS = 'MOVIE_DETAILS';
+export const MOVIES_LIST = 'MOVIES_LIST';
+export const PARAGRAPH = 'PARAGRAPH';
+export const RATINGS = 'RATINGS';
+export const RATINGS_UPDATED = 'RATINGS_UPDATED';
+export const STAR = 'STAR';
+export const STAR_OUTLINED = 'STAR_OUTLINED';

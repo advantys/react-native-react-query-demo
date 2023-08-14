@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from 'react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { useQueryStatusLogging } from '@app/hooks/useQueryStatusLogging';
 import {
@@ -15,7 +15,7 @@ export function useInfiniteMovies() {
   const pageSize = 20;
 
   const queryInfo = useInfiniteQuery(
-    'moviesQuery',
+    ['moviesQuery'],
     ({ pageParam }) => {
       console.log(
         Date.now(),

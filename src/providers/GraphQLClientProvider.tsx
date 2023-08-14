@@ -4,6 +4,7 @@ import { Client as WebSocketClient, createClient } from 'graphql-ws';
 
 type Props = {
   children: React.ReactNode;
+  defaultState?: GraphQLClientState;
 };
 
 export type GraphQLClientState = {
@@ -27,9 +28,9 @@ const initialState: GraphQLClientState = {
   }),
 };
 
-export function GraphQLClientProvider({ children }: Props) {
+export function GraphQLClientProvider({ children, defaultState }: Props) {
   return (
-    <GraphQLClientContext.Provider value={initialState}>
+    <GraphQLClientContext.Provider value={defaultState || initialState}>
       {children}
     </GraphQLClientContext.Provider>
   );

@@ -27,7 +27,7 @@ GraphQL subscription support example has been added.
 
 ## Requirements
 
-- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) (SDK 42)
+- [Expo CLI](https://docs.expo.dev/workflow/expo-cli/) (SDK 49)
 - [Docker](https://docs.docker.com/desktop/)
 - [Docker Compose](https://docs.docker.com/compose/install/)
 
@@ -94,9 +94,6 @@ const initialState: GraphQLClientState = {
       //authorization: '',
     },
   }),
-  webSocketClient: createClient({
-    url: 'ws://localhost:8080/v1/graphql',
-  }),
 };
 ```
 
@@ -124,12 +121,15 @@ To generate types and operations with GraphQL code generator (Hasura must be up)
 - [X] FlatList with infinite queries
 - [X] Cache persistence in the Async storage
 - [X] GraphQL subscriptions
+- [X] Test code coverage (`main` branch only)
 
-## Branches
+## Branches with SDK 49
 - `main` Demo app with infinite list, async storage persistor and optimistic updates
+- `graphql-subscriptions` the movie details screen is updated with GraphQL subscriptions
+
+## Branches with SDK 42
 - `simple-list` Demo app using a simple movies FlatList
 - `movies-list-optimistic-update` The movies list is optimistically updated after a movie mutation 
-- `graphql-subscriptions` the movie details screen is updated with GraphQL subscriptions
 
 ## Notes
 - This app uses many auto-refetch and cache invalidation possibilities but you may have to select the ones you really need for your app in production.
